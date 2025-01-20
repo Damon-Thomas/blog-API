@@ -18,7 +18,7 @@ const authUser = (req, res, next) => {
       if (err) {
         return next(err); // Pass the error to the next middleware
       }
-      return next();
+    next();
     });
   });
 };
@@ -46,10 +46,15 @@ const createUser = asyncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt);
   try {
     const user = await userQueries.createUser(username, hashedPassword);
-    res.redirect("/login");
     return res.json(user);
   } catch (err) {
-    return res.json({ message: err.message });
+    if(err.message.includes("Unique constraint failed on the fields: (`username`)")){
+      return res.json({ message: "Username already exists" });
+    }
+    else{
+        return res.json({ message: err.message, failure: true });
+    }
+    
   }
 });
 
