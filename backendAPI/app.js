@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
-import models from './models/queries.js';
+import models from './models/postQueries.js';
 import routes from './routes/routes.js';
 import jwt from 'jsonwebtoken'; 
 
