@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
+model Posts {
   id        String    @id @default(uuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -22,22 +22,22 @@ model Post {
   published Boolean   @default(false)
   author    User      @relation(fields: [authorId], references: [id])
   authorId  String
-  Comment   Comment[]
+  Comments  Comment[]
 }
 
 model Comment {
-  id     String @id @default(uuid())
+  id      String @id @default(uuid())
   content String
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
-  post   Post   @relation(fields: [postId], references: [id])
-  postId String
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String
+  post    Posts  @relation(fields: [postId], references: [id])
+  postId  String
 }
 
 model User {
   id       String    @id @default(uuid())
   username String    @unique
   password String
-  posts    Post[]
+  posts    Posts[]
   comments Comment[]
 }
