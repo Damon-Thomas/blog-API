@@ -10,6 +10,16 @@ const createUser = async (username, password) => {
   return newUser;
 };
 
+const getUser = async (username) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      username: username,
+    },
+  });
+  return user;
+};
+
 export default {
   createUser,
+  getUser,
 };

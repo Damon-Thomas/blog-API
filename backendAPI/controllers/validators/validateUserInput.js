@@ -23,7 +23,7 @@ const registerValidator = [
 
 ]
 
-const loginValidator = [
+const loginInputValidator = [
     body("username")
     .trim()
     .isLength({ min: 1, max: 20 })
@@ -41,6 +41,6 @@ const loginValidator = [
   ]
 
 export {
-    loginValidator,
+    loginInputValidator,
     registerValidator,
 }

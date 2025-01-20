@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import userController from '../controllers/userController.js';
-import  {loginValidator, registerValidator} from '../controllers/validateUserInput.js';
+import  {loginInputValidator, registerValidator} from '../controllers/validators/validateUserInput.js';
 
 const router = Router();
 
@@ -9,8 +9,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', registerValidator, userController.createUser);
-router.post('/login', loginValidator, userController.authUser, userController.generateToken);
-router.post('/register', userController.createUser);
-
+router.post('/login', loginInputValidator, userController.logIN, userController.generateToken);
 
 export default router;
