@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client')
+import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 
@@ -143,7 +143,7 @@ const prisma = new PrismaClient()
     }
   }
 
-  getMyComments = async (authorId) => {
+  const getMyComments = async (authorId) => {
     try {
         const myComments = await prisma.comments.findMany({
             where: {

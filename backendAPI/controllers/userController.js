@@ -1,9 +1,7 @@
-const { body, validationResult } = require("express-validator");
-const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const passport = require("passport");
+import { body, validationResult } from "express-validator";
+import asyncHandler  from "express-async-handler";
+import bcrypt  from "bcryptjs";
+import jwt  from "jsonwebtoken";
+import passport  from "passport";
 
-module.exports = {
-    
-}
+
