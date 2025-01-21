@@ -1,12 +1,11 @@
 
 import { Router } from 'express';
 import userController from '../controllers/userController.js';
+import postController from '../controllers/postController.js';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  return res.json({message: 'API GET /posts'});
-})
+router.get('/', userController.verifyToken, userController.authUser, postController.getPosts);
 
 router.get('/:postId', (req, res) => {
   res.json({message: 'API GET /posts/:postId'});

@@ -7,12 +7,15 @@ import userQueries from "../models/userQueries.js";
 
 
 const authUser = (req, res, next) => {
-    jwt.verify(req.token, process.env.SECRET_KEY, (err, user) => {
+    console.log('authUser1', req.headers)
+    jwt.verify(req.token, process.env.JWT_SECRET_KEY, (err, user) => {
         if (err) {
+            console.log('jwt nor verified')
             res.sendStatus(403);
         } else {
             req.user = user;
-            res.json({user: req.user, 'token': req.token});
+            console.log('authUser2', req.user)
+            next();
         }
         })
 };
@@ -20,9 +23,10 @@ const authUser = (req, res, next) => {
 const generateToken = (req, res) => {
   jwt.sign(
     { user: req.user },
-    process.env.SECRET_KEY,
+    process.env.JWT_SECRET_KEY,
     { expiresIn: "1d" },
     (err, token) => {
+        console.log('generateToken', token)
       res.json({ 
         'token': token
       });
@@ -32,6 +36,7 @@ const generateToken = (req, res) => {
 
 const verifyToken = (req, res, next) => {
     const bearerHeader = req.headers["authorization"];
+    console.log('verifyToken', bearerHeader)
     if (typeof bearerHeader !== "undefined") {
         const bearer = bearerHeader.split(" ");
         const bearerToken = bearer[1];
@@ -56,13 +61,11 @@ const logIN = asyncHandler(async (req, res, next) => {
           return res.status(400).json({ message: "user does not exist" });
     
         // check if password is correct
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-        console.log('password', hashedPassword, 'bcrypt', userExists.password)
-        if (bcrypt.compare(req.body.password, userExists.password))
+        if (!await bcrypt.compare(req.body.password, userExists.password))
           return res.status(400).json({ message: "incorrect password" });
         else {
             req.user = userExists;
+            console.log('user acquired', req.user)
         }
         next()
     } catch (error) {
