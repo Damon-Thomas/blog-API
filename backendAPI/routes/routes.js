@@ -1,4 +1,4 @@
-import session from './session.js';
+import comments from './comments.js';
 import user from './user.js';
 import posts from './posts.js';
 import dotenv from 'dotenv';
@@ -48,7 +48,7 @@ router.get('/protected', passport.authenticate('jwt', { session: false }), (req,
 });
 
 export default {
-  session,
+  comments,
   user,
   posts,
   router

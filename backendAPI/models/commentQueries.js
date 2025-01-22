@@ -13,13 +13,13 @@ const getCommentsForPost = async (postId) => {
     }
   }
 
-  const createComment = async (comment) => {
+  const createComment = async (comment, postId, username) => {
     try {
         const newComment = await prisma.comment.create({
             data: {
                 content: comment.content,
-                username: comment.username,
-                postId: comment.postId,
+                username: username,
+                postId: postId,
             },
         });
         return newComment;
@@ -30,7 +30,7 @@ const getCommentsForPost = async (postId) => {
 
   const deleteComment = async (commentId) => {
     try {
-        const deletedComment = await prisma.comments.delete({
+        const deletedComment = await prisma.comment.delete({
             where: {
                 id: commentId,
             },
@@ -43,7 +43,7 @@ const getCommentsForPost = async (postId) => {
 
   const updateComment = async (commentId, comment) => {
     try {
-        const updatedComment = await prisma.comments.update({
+        const updatedComment = await prisma.comment.update({
             where: {
                 id: commentId,
             },
@@ -57,11 +57,11 @@ const getCommentsForPost = async (postId) => {
     }
   }
 
-  const getMyComments = async (authorId) => {
+  const getMyComments = async (username) => {
     try {
-        const myComments = await prisma.comments.findMany({
+        const myComments = await prisma.comment.findMany({
             where: {
-                authorId: authorId,
+                username: username,
             },
         });
         return myComments;
@@ -69,6 +69,8 @@ const getCommentsForPost = async (postId) => {
         console.error(error);
     }
   }
+
+  
 
   export default {
     getCommentsForPost,

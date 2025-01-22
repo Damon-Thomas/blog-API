@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', routes.router);
-app.use('/session', routes.session);
+app.use('/comments', routes.comments);
 app.use('/users', routes.user);
 app.use('/posts', routes.posts);
 
