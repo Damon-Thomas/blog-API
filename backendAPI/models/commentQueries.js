@@ -28,6 +28,21 @@ const getCommentsForPost = async (postId) => {
     }
   }
 
+  const createComment2 = async (comment) => {
+    try {
+        const newComment = await prisma.comment.create({
+            data: {
+                content: comment.content,
+                username: comment.username,
+                postId: comment.postId,
+            },
+        });
+        return newComment;
+    } catch (error) {
+        console.error(error);
+    }
+  }
+
   const deleteComment = async (commentId) => {
     try {
         const deletedComment = await prisma.comment.delete({
@@ -75,6 +90,7 @@ const getCommentsForPost = async (postId) => {
   export default {
     getCommentsForPost,
     createComment,
+    createComment2,
     deleteComment,
     updateComment,
     getMyComments,

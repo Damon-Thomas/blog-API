@@ -7,19 +7,19 @@ const seedDB = async () => {
         title: "My first blog post",
         content: "This is my first blog post. I hope you enjoy it!",
         published: true,
-        authorId: "82b6b7c1-ee6d-410a-8ac2-e504633b603c"
+        authorId: "15a5c4e0-c43c-476a-8c92-0f51e566184a"
     };
     const post2 = {
         title: "My second blog post",
         content: "This is my second blog post. I hope you enjoy it!",
         published: true,
-        authorId: "82b6b7c1-ee6d-410a-8ac2-e504633b603c"
+        authorId: "15a5c4e0-c43c-476a-8c92-0f51e566184a"
     };
     const post3 = {
         title: "My third blog post",
         content: "This is my third blog post. I hope you enjoy it!",
         published: true,
-        authorId: "ff067de1-ecda-4b1e-8c43-48291909a33f"
+        authorId: "708c5b28-fac4-4a46-ad5c-e443487b3808"
     };
 
     const newPost1 = await postQueries.createBlogPost(post1);
@@ -33,4 +33,5 @@ const seedDB = async () => {
 
     seedDB();
 
+    //change authorIds to generated ids from 1createUsers.js
     // Run this file with node models/seedDBfiles/2seedPosts.js
