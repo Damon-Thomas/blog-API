@@ -1,11 +1,12 @@
 import 'dotenv/config';
 import express from 'express';
-import models from './models/postQueries.js';
 import routes from './routes/routes.js';
-import jwt from 'jsonwebtoken'; 
+import cors from 'cors';
+
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
