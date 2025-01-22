@@ -27,15 +27,18 @@ model Posts {
 
 model Comment {
   id      String @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   content String
-  user    User   @relation(fields: [userId], references: [id])
-  userId  String
+  user    User   @relation(fields: [username], references: [username])
+  username  String
   post    Posts  @relation(fields: [postId], references: [id])
   postId  String
 }
 
 model User {
   id       String    @id @default(uuid())
+  createdAt DateTime  @default(now())
   username String    @unique
   password String
   posts    Posts[]

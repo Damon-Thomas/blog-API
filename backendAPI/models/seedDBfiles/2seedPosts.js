@@ -7,19 +7,19 @@ const seedDB = async () => {
         title: "My first blog post",
         content: "This is my first blog post. I hope you enjoy it!",
         published: true,
-        authorId: "394a90b7-6395-4e73-8924-7ee77b760370"
+        authorId: "82b6b7c1-ee6d-410a-8ac2-e504633b603c"
     };
     const post2 = {
         title: "My second blog post",
         content: "This is my second blog post. I hope you enjoy it!",
         published: true,
-        authorId: "9f644308-821b-4cf5-b5e8-95ea03997a82"
+        authorId: "82b6b7c1-ee6d-410a-8ac2-e504633b603c"
     };
     const post3 = {
         title: "My third blog post",
         content: "This is my third blog post. I hope you enjoy it!",
         published: true,
-        authorId: "394a90b7-6395-4e73-8924-7ee77b760370"
+        authorId: "ff067de1-ecda-4b1e-8c43-48291909a33f"
     };
 
     const newPost1 = await postQueries.createBlogPost(post1);
@@ -32,3 +32,5 @@ const seedDB = async () => {
     }
 
     seedDB();
+
+    // Run this file with node models/seedDBfiles/2seedPosts.js

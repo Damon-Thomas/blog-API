@@ -1,10 +1,14 @@
 
 import prisma from './client.js';
-import asyncHandler from "express-async-handler";
+
 
   const getAllBlogPosts = async() => {
     try {
-        const allPosts = await prisma.posts.findMany();
+        const allPosts = await prisma.posts.findMany({
+            where: {
+                published: true,
+            },
+        });
         return allPosts;
     } catch (error) {
         console.error(error);
@@ -30,11 +34,13 @@ import asyncHandler from "express-async-handler";
 
   const getMyBlogPosts = async (authorId) => {
     try {
+        console.log('AuthorId', authorId)
         const myPosts = await prisma.posts.findMany({
             where: {
                 authorId: authorId,
             },
         });
+        console.log('filtered Posts', myPosts, authorId)
         return myPosts;
     } catch (error) {
         console.error(error);
@@ -83,16 +89,37 @@ import asyncHandler from "express-async-handler";
         console.error(error);
     }
   }
+  
+  const getUserPublishedPosts = async (authorId) => {
+    try {
+        const publishedPosts = await prisma.posts.findMany({
+            where: {
+                authorId: authorId,
+                published: true,
+            },
+        });
+        return publishedPosts;
+    } catch (error) {
+        console.error(error);
+    }
+  }
+
+  const getUserUnpublishedPosts = async (authorId) => {
+    try {
+        const unpublishedPosts = await prisma.posts.findMany({
+            where: {
+                authorId: authorId,
+                published: false,
+            },
+        });
+        return unpublishedPosts;
+    } catch (error) {
+        console.error(error);
+    }
+  }
+
 
   
-
-
-
-
-
-
-
-
 
   export default {
     getAllBlogPosts,
@@ -101,5 +128,8 @@ import asyncHandler from "express-async-handler";
     getOneBlogPost,
     updateBlogPost,
     deleteBlogPost,
+    getUserPublishedPosts,
+    getUserUnpublishedPosts,
+    
 
   };

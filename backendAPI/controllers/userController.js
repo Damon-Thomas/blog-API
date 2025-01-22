@@ -2,22 +2,27 @@ import { body, validationResult } from "express-validator";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import passport from "passport";
-import userQueries from "../models/userQueries.js";
 
+import userQueries from "../models/userQueries.js";
+import postQueries from "../models/postQueries.js"; // Ensure postQueries is imported
 
 const authUser = asyncHandler(async(req, res, next) => {
     console.log('authUser1', req.headers)
-    jwt.verify(req.token, process.env.JWT_SECRET_KEY, (err, user) => {
+    jwt.verify(req.token, process.env.JWT_SECRET_KEY, async (err, decoded) => {
         if (err) {
             console.log('jwt not verified')
             res.sendStatus(403);
         } else {
-            req.user = user;
-            console.log('authUser2', req.user)
-            next();
+            const user = await userQueries.getUser(decoded.user.username);
+            if (!user) {
+                res.sendStatus(403);
+            } else {
+                req.user = user;
+                console.log('authUser2', req.user)
+                next();
+            }
         }
-        })
+    });
 });
 
 const generateToken = asyncHandler(async(req, res) => {
@@ -66,8 +71,9 @@ const logIN = asyncHandler(async (req, res, next) => {
         else {
             req.user = userExists;
             console.log('user acquired', req.user)
+            // Ensure req.user is set before calling next()
+            next();
         }
-        next()
     } catch (error) {
         return res.status(400).json({ message: error.message });
     }
@@ -102,6 +108,12 @@ const logoutUser = asyncHandler(async(req, res) => {
   res.json({ message: "Logged out" });
 });
 
+const getUsersPosts = asyncHandler(async(req, res) => {
+    console.log('getUsersPosts:', req.user)
+    const posts = await postQueries.getMyBlogPosts(req.user.id);
+    res.json(posts);
+});
+
 export default {
   authUser,
   generateToken,
@@ -109,4 +121,5 @@ export default {
   logoutUser,
   verifyToken,
   logIN,
+  getUsersPosts,
 };

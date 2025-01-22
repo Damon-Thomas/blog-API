@@ -20,3 +20,5 @@ const user2 = await seedUser('user2', 'password2');
 const user3 = await seedUser('user3', 'password3');
 
 console.log(user1, user2, user3);
+
+//    node models/seedDBfiles/1createUsers.js

@@ -2,7 +2,7 @@ import prisma from './client.js';
 
 const getCommentsForPost = async (postId) => {
     try {
-        const comments = await prisma.comments.findMany({
+        const comments = await prisma.comment.findMany({
             where: {
                 postId: postId,
             },
@@ -18,7 +18,7 @@ const getCommentsForPost = async (postId) => {
         const newComment = await prisma.comment.create({
             data: {
                 content: comment.content,
-                userId: comment.userId,
+                username: comment.username,
                 postId: comment.postId,
             },
         });
