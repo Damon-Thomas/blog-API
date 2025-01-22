@@ -1,5 +1,6 @@
 
 import prisma from './client.js';
+import asyncHandler from "express-async-handler";
 
   const getAllBlogPosts = async() => {
     try {

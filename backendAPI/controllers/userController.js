@@ -6,11 +6,11 @@ import passport from "passport";
 import userQueries from "../models/userQueries.js";
 
 
-const authUser = (req, res, next) => {
+const authUser = asyncHandler(async(req, res, next) => {
     console.log('authUser1', req.headers)
     jwt.verify(req.token, process.env.JWT_SECRET_KEY, (err, user) => {
         if (err) {
-            console.log('jwt nor verified')
+            console.log('jwt not verified')
             res.sendStatus(403);
         } else {
             req.user = user;
@@ -18,9 +18,9 @@ const authUser = (req, res, next) => {
             next();
         }
         })
-};
+});
 
-const generateToken = (req, res) => {
+const generateToken = asyncHandler(async(req, res) => {
   jwt.sign(
     { user: req.user },
     process.env.JWT_SECRET_KEY,
@@ -32,9 +32,9 @@ const generateToken = (req, res) => {
       });
     }
   );
-};
+});
 
-const verifyToken = (req, res, next) => {
+const verifyToken = asyncHandler(async(req, res, next) => {
     const bearerHeader = req.headers["authorization"];
     console.log('verifyToken', bearerHeader)
     if (typeof bearerHeader !== "undefined") {
@@ -45,7 +45,7 @@ const verifyToken = (req, res, next) => {
     } else {
         res.sendStatus(403);
     }
-    }
+    })
 
 const logIN = asyncHandler(async (req, res, next) => {
     console.log('login', req.body)
@@ -98,9 +98,9 @@ const createUser = asyncHandler(async (req, res) => {
   }
 });
 
-const logoutUser = (req, res) => {
+const logoutUser = asyncHandler(async(req, res) => {
   res.json({ message: "Logged out" });
-};
+});
 
 export default {
   authUser,

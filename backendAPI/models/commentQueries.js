@@ -15,10 +15,10 @@ const getCommentsForPost = async (postId) => {
 
   const createComment = async (comment) => {
     try {
-        const newComment = await prisma.comments.create({
+        const newComment = await prisma.comment.create({
             data: {
                 content: comment.content,
-                authorId: comment.authorId,
+                userId: comment.userId,
                 postId: comment.postId,
             },
         });

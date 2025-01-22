@@ -5,11 +5,11 @@ import postController from '../controllers/postController.js';
 
 const router = Router();
 
-router.get('/', userController.verifyToken, userController.authUser, postController.getPosts);
+//Protect routes using this middleware: userController.verifyToken, userController.authUser, 
 
-router.get('/:postId', (req, res) => {
-  res.json({message: 'API GET /posts/:postId'});
-});
+router.get('/', postController.getPosts);
+
+router.get('/:postId', );
 
 router.post('/', userController.verifyToken, userController.authUser, (req, res) => {
   res.json({message: 'API POST /posts', 'token': req.token})
