@@ -4,6 +4,15 @@
 
 
 :root {
+  --primary: #736A3D;
+  --darkprimary: #0D0C07;
+  --lightprimary: #B9AE79;
+  --secondary: #F2C14E;
+  --lightsecondary: #FCF2D9;
+  --red:#C97064;
+  --warning:#4f1810;
+  --grey:#88A0A8;
+  --light:#E6FAFC;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -57,6 +66,13 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.DropdownMenuContent{
+  background-color: #ffffff;
+  border: 1px solid var(--darkprimary);
+  margin-right: 32px;
+  
 }
 
 @media (prefers-color-scheme: light) {

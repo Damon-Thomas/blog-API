@@ -19,7 +19,9 @@ import { Input } from "@/components/ui/input"
 const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
+    
   }),
+  password: z.string().min(1, { message: 'Required' }),
 })
 
 export function LogInForm() {
@@ -28,35 +30,46 @@ export function LogInForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
+      password: "",
     },
   })
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values)
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values)
   }
 
+  const uniqueId = `form-item-${Math.random().toString(36).substr(2, 9)}`;
+  const uniqueId2 = `form-item-${Math.random().toString(36).substr(2, 9)}`;
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
+      <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel className="text-darkprimary" >Username</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input onClick={(e) => e.stopPropagation()} id={uniqueId}  placeholder="cool-username" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
+              </FormItem>
+            )}/>
+          
+          <FormField control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-darkprimary">Password</FormLabel>
+                <FormControl>
+                  <Input onClick={(e) => e.stopPropagation()} id={uniqueId2} type="password" placeholder="password" {...field} />
+                </FormControl>
             </FormItem>
-          )}
-        />
+          )}/>
         <Button type="submit">Submit</Button>
       </form>
     </Form>
