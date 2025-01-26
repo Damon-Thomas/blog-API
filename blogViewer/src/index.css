@@ -75,7 +75,11 @@ button:focus-visible {
 }
 
 .form-item {
-  margin-top: 0px !important; /* Use !important to override other rules */
+  margin-top: 0px !important; 
+}
+.margintopsmall {
+  margin-top: 3px !important; 
+  margin-bottom: 3px !important;
 }
 
 @media (prefers-color-scheme: light) {

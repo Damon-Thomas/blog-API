@@ -151,7 +151,7 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn("text-[0.8rem] font-medium text-warning ", className)}
+      className={cn("text-[0.8rem] font-medium text-warning margintopsmall", className)}
       {...props}
     >
       {body || <span className="opacity-0 ">Placeholder</span>}

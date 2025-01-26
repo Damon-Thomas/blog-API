@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -20,37 +21,44 @@ const formSchema = z
   .object({
     username: z.string().min(2, {
       message: "Username must be at least 2 characters.",
-      path: ["username"],
     }),
-    password: z.string().min(1, { message: "Required", path: ["password"] }),
-    confirmpassword: z.string().min(1, { message: "Required" }),
+    password: z.string().min(1, { message: "Required" }),
+    confirmPassword: z.string().min(1, { message: "Required" }),
   })
-  .refine((data) => data.password === data.confirmpassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords must match",
-    path: ["confirmpassword"], // path of error
+    path: ["confirmPassword"], // path of error
   });
 
 export function SignUpForm() {
-  // 1. Define your form.
+  const [failure, setFailure] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
       password: "",
-      confirmpassword: "",
+      confirmPassword: "",
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const response = await fetch("http://localhost:3000/users/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
 
-  const uniqueId = `form-item-${Math.random().toString(36).substr(2, 9)}`;
-  const uniqueId2 = `form-item-${Math.random().toString(36).substr(2, 9)}`;
-  const uniqueId3 = `form-item-${Math.random().toString(36).substr(2, 9)}`;
+    const json = await response.json();
+    console.log("JSON", json);
+    if (json.failure) {
+      setFailure(true);
+    } else {
+      setFailure(false);
+    }
+  }
 
   return (
     <Form {...form}>
@@ -62,46 +70,42 @@ export function SignUpForm() {
         <FormField
           control={form.control}
           name="username"
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <FormItem>
               <FormLabel className="text-darkprimary">Username</FormLabel>
               <FormControl>
                 <Input
                   onClick={(e) => e.stopPropagation()}
-                  id={uniqueId}
                   placeholder="cool-username"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage>{fieldState.error?.message}</FormMessage>
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="password"
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <FormItem>
               <FormLabel className="text-darkprimary">Password</FormLabel>
               <FormControl>
                 <Input
                   onClick={(e) => e.stopPropagation()}
-                  id={uniqueId2}
                   type="password"
                   placeholder="password"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage>{fieldState.error?.message}</FormMessage>
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
-          name="confirmpassword"
-          render={({ field }) => (
+          name="confirmPassword"
+          render={({ field, fieldState }) => (
             <FormItem>
               <FormLabel className="text-darkprimary">
                 Confirm Password
@@ -109,18 +113,25 @@ export function SignUpForm() {
               <FormControl>
                 <Input
                   onClick={(e) => e.stopPropagation()}
-                  id={uniqueId3}
                   type="password"
                   placeholder="password"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage>{fieldState.error?.message}</FormMessage>
             </FormItem>
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <FormMessage id="failure-message">
+          {failure ? (
+            "Username already exists. Please try another."
+          ) : (
+            <span className="opacity-0">Placeholder</span>
+          )}
+        </FormMessage>
+
+        <Button onClick={(e) => e.stopPropagation()} type="submit">Submit</Button>
       </form>
     </Form>
   );

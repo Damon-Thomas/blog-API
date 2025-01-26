@@ -63,11 +63,11 @@ const logIN = asyncHandler(async (req, res, next) => {
         //check if user exists
         const userExists = await userQueries.getUser(req.body.username);
         if (!userExists)
-          return res.status(400).json({ message: "user does not exist" });
+          return res.status(400).json({ message: "user does not exist", failure: true });
     
         // check if password is correct
         if (!await bcrypt.compare(req.body.password, userExists.password))
-          return res.status(400).json({ message: "incorrect password" });
+          return res.status(400).json({ message: "incorrect password", failure: true  });
         else {
             req.user = userExists;
             console.log('user acquired', req.user)
