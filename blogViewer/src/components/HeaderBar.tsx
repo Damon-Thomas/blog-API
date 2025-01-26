@@ -1,4 +1,5 @@
 
+import { Toaster } from "sonner";
 import { DropDownMobileMenu } from "./HeaderDropD";
 import HeaderNav from "./HeaderNav";
 import Logo from "./Logo";
@@ -10,6 +11,7 @@ export default function HeaderBar() {
       <div className="headerRight flex justify-end items-center">
         <DropDownMobileMenu />
         <HeaderNav />
+        <Toaster position="bottom-right"></Toaster>
       </div>
     </div>
   );

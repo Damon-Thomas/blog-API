@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,6 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 
 const formSchema = z
   .object({
@@ -32,6 +34,7 @@ const formSchema = z
 
 export function SignUpForm() {
   const [failure, setFailure] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -57,12 +60,16 @@ export function SignUpForm() {
       setFailure(true);
     } else {
       setFailure(false);
+      toast("Signed up successfully", { position: "bottom-right" });
+      if (closeRef.current) {
+        closeRef.current.click();
+      }
     }
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <Form  {...form}>
+      <form onClick={(e) => e.stopPropagation()} onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormDescription className="mb-4">
           Sign up for an account to comment, make blog posts, and participate in
           our community.
@@ -123,7 +130,7 @@ export function SignUpForm() {
           )}
         />
 
-        <FormMessage id="failure-message">
+        <FormMessage onClick={(e) => e.stopPropagation()} id="failure-message">
           {failure ? (
             "Username already exists. Please try another."
           ) : (
@@ -132,6 +139,9 @@ export function SignUpForm() {
         </FormMessage>
 
         <Button onClick={(e) => e.stopPropagation()} type="submit">Submit</Button>
+        <DialogPrimitive.Close asChild>
+          <button ref={closeRef} style={{ display: "none" }} />
+        </DialogPrimitive.Close>
       </form>
     </Form>
   );

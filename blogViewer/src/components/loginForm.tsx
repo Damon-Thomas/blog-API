@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,6 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -26,6 +28,7 @@ const formSchema = z.object({
 
 export function LogInForm() {
   const [failure, setFailure] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,6 +53,12 @@ export function LogInForm() {
       setFailure(true);
     } else {
       setFailure(false);
+      localStorage.setItem("token", json.token);
+      toast("Logged in", { position: "bottom-right" });
+      console.log('Logged in');
+      if (closeRef.current) {
+        closeRef.current.click();
+      }
     }
   }
 
@@ -89,6 +98,9 @@ export function LogInForm() {
           {failure ? "Invalid login. Please try again." : <span className="opacity-0">Placeholder</span>}
         </FormMessage>
         <Button onClick={(e) => e.stopPropagation()} type="submit">Log In</Button>
+        <DialogPrimitive.Close asChild>
+          <button ref={closeRef} style={{ display: "none" }} />
+        </DialogPrimitive.Close>
       </form>
     </Form>
   );

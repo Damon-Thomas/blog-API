@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   return res.json({message: 'API GET /users'});
 });
 
-router.post('/', registerValidator, userController.createUser);
+router.post('/', registerValidator, userController.createUser, userController.logIN, userController.generateToken);
 router.post('/login', loginInputValidator, userController.logIN, userController.generateToken);
 
 export default router;

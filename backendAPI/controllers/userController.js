@@ -80,7 +80,7 @@ const logIN = asyncHandler(async (req, res, next) => {
 });
     
 
-const createUser = asyncHandler(async (req, res) => {
+const createUser = asyncHandler(async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -90,7 +90,7 @@ const createUser = asyncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt);
   try {
     const user = await userQueries.createUser(username, hashedPassword);
-    return res.json(user);
+    next();
   } catch (err) {
     if (
       err.message.includes(
