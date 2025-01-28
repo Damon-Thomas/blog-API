@@ -1,10 +1,9 @@
 import {
     NavigationMenu,
-    NavigationMenuItem,
     NavigationMenuList,
   } from "./ui/navigation-menu";
-import LogInDialog from "./LogInDialog";
-import SignUpDialog from "./SignUpDialog";
+
+import NavButtons from "./NavButtons";
 
 
 
@@ -13,12 +12,7 @@ export default function HeaderNav() {
     <div className="mobile hidden md:block lg:block">
       <NavigationMenu>
         <NavigationMenuList>
-          <NavigationMenuItem>
-            <LogInDialog />
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <SignUpDialog />
-          </NavigationMenuItem>
+          <NavButtons />
         </NavigationMenuList>
       </NavigationMenu>
     </div>

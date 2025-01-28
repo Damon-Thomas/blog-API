@@ -18,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { useAuth } from "@/context/AuthContext";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -29,6 +30,7 @@ const formSchema = z.object({
 export function LogInForm() {
   const [failure, setFailure] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const { setLoggedIn } = useAuth();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -56,6 +58,7 @@ export function LogInForm() {
       localStorage.setItem("token", json.token);
       localStorage.setItem("modernMurmurUsername", JSON.stringify(json.user.username));
       toast(`Logged in as user: ${json.user.username}`, { position: "bottom-right" });
+      setLoggedIn(true);
       console.log('Logged in');
       if (closeRef.current) {
         closeRef.current.click();
