@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
- 
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
@@ -12,18 +11,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import SignUpDialog from "./SignUpDialog";
 import LogInDialog from "./LogInDialog";
-
-
+import LogoutButton from "./LogoutButton";
+import ToCreatePage from "./ToCreatePage";
+import DropdownHeaderContent from "./DropdownHeaderContent";
 
 export function DropDownMobileMenu() {
-
   return (
     <div className="mobile block md:hidden lg:hidden">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="default">
             <svg
-            
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
               viewBox="0 -960 960 960"
@@ -34,15 +32,12 @@ export function DropDownMobileMenu() {
             </svg>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56 DropdownMenuContent" side="bottom" sideOffset={0}>
-          <DropdownMenuLabel>Authentication</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
-            <SignUpDialog />
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
-            <LogInDialog /> 
-          </DropdownMenuItem>
+        <DropdownMenuContent
+          className="w-56 DropdownMenuContent"
+          side="bottom"
+          sideOffset={0}
+        >
+          <DropdownHeaderContent />
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

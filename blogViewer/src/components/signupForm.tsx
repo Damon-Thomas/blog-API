@@ -60,7 +60,9 @@ export function SignUpForm() {
       setFailure(true);
     } else {
       setFailure(false);
-      toast("Signed up successfully", { position: "bottom-right" });
+      localStorage.setItem("token", json.token);
+      localStorage.setItem("modernMurmurUsername", JSON.stringify(json.user.username));
+      toast(`Sign up successful! Logged in as user: ${json.user.username}`, { position: "bottom-right" });
       if (closeRef.current) {
         closeRef.current.click();
       }

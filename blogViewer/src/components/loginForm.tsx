@@ -54,7 +54,8 @@ export function LogInForm() {
     } else {
       setFailure(false);
       localStorage.setItem("token", json.token);
-      toast("Logged in", { position: "bottom-right" });
+      localStorage.setItem("modernMurmurUsername", JSON.stringify(json.user.username));
+      toast(`Logged in as user: ${json.user.username}`, { position: "bottom-right" });
       console.log('Logged in');
       if (closeRef.current) {
         closeRef.current.click();

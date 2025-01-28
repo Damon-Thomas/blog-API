@@ -10,5 +10,6 @@ router.get('/', (req, res) => {
 
 router.post('/', registerValidator, userController.createUser, userController.logIN, userController.generateToken);
 router.post('/login', loginInputValidator, userController.logIN, userController.generateToken);
+router.get('/protected', userController.verifyToken, userController.authUser, userController.sendUserInfo);
 
 export default router;

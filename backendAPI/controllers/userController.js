@@ -33,10 +33,15 @@ const generateToken = asyncHandler(async(req, res) => {
     (err, token) => {
         console.log('generateToken', token)
       res.json({ 
-        'token': token
+        'token': token,
+        'user': req.user
       });
     }
   );
+});
+
+const sendUserInfo = asyncHandler(async(req, res) => {
+    res.json({ user: req.user });
 });
 
 const verifyToken = asyncHandler(async(req, res, next) => {
@@ -122,4 +127,5 @@ export default {
   verifyToken,
   logIN,
   getUsersPosts,
+  sendUserInfo,
 };
