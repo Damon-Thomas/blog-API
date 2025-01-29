@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -26,21 +27,21 @@ model Posts {
 }
 
 model Comment {
-  id      String @id @default(uuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  content String
-  user    User   @relation(fields: [username], references: [username])
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content   String
+  user      User     @relation(fields: [username], references: [username])
   username  String
-  post    Posts  @relation(fields: [postId], references: [id])
-  postId  String
+  post      Posts    @relation(fields: [postId], references: [id])
+  postId    String
 }
 
 model User {
-  id       String    @id @default(uuid())
+  id        String    @id @default(uuid())
   createdAt DateTime  @default(now())
-  username String    @unique
-  password String
-  posts    Posts[]
-  comments Comment[]
+  username  String    @unique
+  password  String
+  posts     Posts[]
+  comments  Comment[]
 }

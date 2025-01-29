@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { loggedInVerifier } from "@/userControls";
-import { DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "./ui/dropdown-menu";
+import { DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "../ui/dropdown-menu";
 import LogoutButton from "./LogoutButton";
 import ToCreatePage from "./ToCreatePage";
 import SignUpDialog from "./SignUpDialog";

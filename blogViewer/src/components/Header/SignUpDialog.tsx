@@ -1,6 +1,6 @@
 import { SignUpForm } from "./signupForm";
-import { Button } from "./ui/button";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Button } from "../ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog";
 
 
 export default function SignUpDialog() {

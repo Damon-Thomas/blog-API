@@ -7,19 +7,19 @@ const seedDB = async () => {
         title: "My first blog post",
         content: "This is my first blog post. I hope you enjoy it!",
         published: true,
-        authorId: "15a5c4e0-c43c-476a-8c92-0f51e566184a"
+        authorId: "900cc93a-b9a1-4aac-8861-a6c05f90d042"
     };
     const post2 = {
         title: "My second blog post",
         content: "This is my second blog post. I hope you enjoy it!",
         published: true,
-        authorId: "15a5c4e0-c43c-476a-8c92-0f51e566184a"
+        authorId: "05b85eb0-eac6-445c-b4a6-e6c6bfd9f83c"
     };
     const post3 = {
         title: "My third blog post",
         content: "This is my third blog post. I hope you enjoy it!",
         published: true,
-        authorId: "708c5b28-fac4-4a46-ad5c-e443487b3808"
+        authorId: "42aded87-24e5-47db-8711-c6266f45dc66"
     };
 
     const newPost1 = await postQueries.createBlogPost(post1);

@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+// dotenv.config(); 
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -48,7 +48,7 @@ export function SignUpForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const response = await fetch("http://localhost:3000/users/", {
+    const response = await fetch(`${import.meta.env.VITE_HOST_URL}/users/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

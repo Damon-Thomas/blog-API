@@ -5,17 +5,17 @@ import commentQueries from "../../models/commentQueries.js";
 const comment1 = {
     content: "This is a great post!",
     username: "user3",
-    postId: "1842e08e-6149-4f47-bd73-5bb95eba5005"
+    postId: "3635ffc2-bede-46a9-b15f-74dd70620e35"
 };
 const comment2 = {
     content: "I love this post!",
     username: "user3",
-    postId: "c89e6b3b-4f0b-41f4-917c-85af5d108274"
+    postId: "92b4c3ad-106a-4a94-b34e-c4570d0a9c4f"
 };
 const comment3 = {
     content: "This post is amazing!",
     username: "user3",
-    postId: "ef04f72c-849b-4f1f-8f0b-f1800157e303"
+    postId: "c7d9ca79-6e42-44da-bf75-1b7394f4dd88"
 }
 
 

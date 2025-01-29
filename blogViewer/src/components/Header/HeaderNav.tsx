@@ -1,7 +1,7 @@
 import {
     NavigationMenu,
     NavigationMenuList,
-  } from "./ui/navigation-menu";
+  } from "../ui/navigation-menu";
 
 import NavButtons from "./NavButtons";
 

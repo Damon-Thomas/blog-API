@@ -13,6 +13,7 @@
   --warning: #4f1810;
   --grey: #88A0A8;
   --light: #E6FAFC;
+  --opaqueWhite: rgba(255, 255, 255, 0.90);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;

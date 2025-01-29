@@ -1,14 +1,19 @@
 
 import prisma from './client.js';
+import relationLoadStrategy from '@prisma/client';
 
 
   const getAllBlogPosts = async() => {
     try {
         const allPosts = await prisma.posts.findMany({
-            where: {
-                published: true,
+            relationLoadStrategy: 'join',
+            include: {
+                author: true,
+                Comments: true,
             },
+
         });
+        console.log(allPosts);
         return allPosts;
     } catch (error) {
         console.error(error);

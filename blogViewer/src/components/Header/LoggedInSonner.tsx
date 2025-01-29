@@ -1,4 +1,4 @@
-import { Toaster } from "./ui/sonner";
+import { Toaster } from "../ui/sonner";
 
 export default function LoggedInSonner() {
   return (

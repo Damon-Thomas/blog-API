@@ -1,11 +1,11 @@
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
+} from "../ui/dialog";
 import { LogInForm } from "./loginForm";
 
 export default function LogInDialog() {

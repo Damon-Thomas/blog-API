@@ -22,7 +22,7 @@ export default {
         "grey": "var(--grey)",
         "light": "var(--light)",
         "warning": "var(--warning)",
-        
+        "opaqueWhite": "var(--opaqueWhite)",
       }
   	}
   },
