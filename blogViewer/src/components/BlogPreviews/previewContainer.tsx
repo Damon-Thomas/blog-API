@@ -4,7 +4,7 @@ import BlogPreview from './blogPreview';
 export default function BlogPreviewContainer() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     async function fetchPosts() {

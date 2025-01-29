@@ -1,4 +1,12 @@
-export default function blogPreview({title, content, updated, author, comments}) {
+interface BlogPreviewProps {
+  title: string;
+  content: string;
+  updated: string;
+  author: string;
+  comments: number;
+}
+
+export default function blogPreview({title, content, updated, author, comments}: BlogPreviewProps) {
   const update = new Date(updated);
 
   return (
