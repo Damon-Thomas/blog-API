@@ -45,7 +45,7 @@ export default function BlogPreviewContainer() {
   return (
     <div className="blogPreviewContainer flex flex-col ">
       
-      <div className="blogPreviews flex flex-wrap justify-around w-full">
+      <div className="blogPreviews grid grid-cols-1 sm:grid-cols-2  w-full gap-4 py-4 px-2 md:px-6">
         {posts.map((post) => (
           <BlogPreview key={post.id} title={post.title} content={post.content} updated={post.updatedAt} author={post.author.username} comments={post.Comments.length} />
         ))}

@@ -1,6 +1,6 @@
 import { Button } from "../ui/button";
 import { useAuth } from "@/context/AuthContext";
-
+import { toast } from "sonner";
 
 
 export default function LogoutButton({ variant }: { variant: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined } = { variant: "default" }) {
@@ -9,8 +9,7 @@ export default function LogoutButton({ variant }: { variant: "default" | "destru
         // Implement the logout logic here
         localStorage.removeItem("token");
         setLoggedIn(false);
-        console.log("Logged out");
-        // You can also redirect the user or perform other actions as needed
+        toast(`Logged out`, { position: "bottom-right" });
       }
     
     return (

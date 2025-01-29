@@ -11,7 +11,7 @@ export default function HeaderBar() {
       <div className="headerRight flex justify-end items-center">
         <DropDownMobileMenu />
         <HeaderNav />
-        <Toaster position="bottom-right"></Toaster>
+        
       </div>
     </div>
   );
