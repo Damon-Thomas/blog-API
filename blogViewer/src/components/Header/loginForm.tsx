@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-// dotenv.config(); 
+// dotenv.config();
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -41,25 +41,35 @@ export function LogInForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const response = await fetch(`${import.meta.env.VITE_HOST_URL}/users/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_HOST_URL}/users/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      }
+    );
 
     const json = await response.json();
-    console.log('JSON', json);
+    console.log("JSON", json);
     if (json.failure) {
       setFailure(true);
     } else {
       setFailure(false);
+      console.log("Token", json.token);
       localStorage.setItem("token", json.token);
-      localStorage.setItem("modernMurmurUsername", JSON.stringify(json.user.username));
-      toast(`Logged in as user: ${json.user.username}`, { position: "bottom-right" });
+      console.log("storage token", localStorage.getItem("token"));
+      localStorage.setItem(
+        "modernMurmurUsername",
+        JSON.stringify(json.user.username)
+      );
+      toast(`Logged in as user: ${json.user.username}`, {
+        position: "bottom-right",
+      });
       setLoggedIn(true);
-      console.log('Logged in');
+      console.log("Logged in");
       if (closeRef.current) {
         closeRef.current.click();
       }
@@ -70,7 +80,8 @@ export function LogInForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormDescription className="mb-4">
-          Log in to your account to access your dashboard, manage your posts, and leave comments.
+          Log in to your account to access your dashboard, manage your posts,
+          and leave comments.
         </FormDescription>
         <FormField
           control={form.control}
@@ -79,7 +90,11 @@ export function LogInForm() {
             <FormItem>
               <FormLabel className="text-darkprimary">Username</FormLabel>
               <FormControl>
-                <Input onClick={(e) => e.stopPropagation()} placeholder="cool-username" {...field} />
+                <Input
+                  onClick={(e) => e.stopPropagation()}
+                  placeholder="cool-username"
+                  {...field}
+                />
               </FormControl>
               <FormMessage>{fieldState.error?.message}</FormMessage>
             </FormItem>
@@ -92,16 +107,27 @@ export function LogInForm() {
             <FormItem>
               <FormLabel className="text-darkprimary">Password</FormLabel>
               <FormControl>
-                <Input onClick={(e) => e.stopPropagation()} type="password" placeholder="password" {...field} />
+                <Input
+                  onClick={(e) => e.stopPropagation()}
+                  type="password"
+                  placeholder="password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage>{fieldState.error?.message}</FormMessage>
             </FormItem>
           )}
         />
         <FormMessage id="failure-message">
-          {failure ? "Invalid login. Please try again." : <span className="opacity-0">Placeholder</span>}
+          {failure ? (
+            "Invalid login. Please try again."
+          ) : (
+            <span className="opacity-0">Placeholder</span>
+          )}
         </FormMessage>
-        <Button onClick={(e) => e.stopPropagation()} type="submit">Log In</Button>
+        <Button onClick={(e) => e.stopPropagation()} type="submit">
+          Log In
+        </Button>
         <DialogPrimitive.Close asChild>
           <button ref={closeRef} style={{ display: "none" }} />
         </DialogPrimitive.Close>

@@ -1,5 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/app/sidebar";
+import { AppSidebar } from "@/app/app-sidebar";
+import UserPosts from "./userPosts";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,6 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <SidebarTrigger />
         {children}
       </main>
+      <UserPosts />
     </SidebarProvider>
   );
 }

@@ -1,17 +1,27 @@
-import './App.css'
-import HeaderBar from './components/Header/HeaderBar'
-import PreviewContainer from './components/BlogPreviews/PreviewContainer'
-import { Toaster } from 'sonner'
+import "./App.css";
+import "./index.css";
+import Home from "./components/pages/mainpage.tsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Post from "./components/pages/postpage.tsx";
+import NotFound from "./components/pages/404.tsx";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "post",
+    element: <Post />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+]);
 
 function App() {
-
-  return (
-    <div className="p-4 md:p-6 lg:p-8 mainBody flex flex-col content-start w-screen min-h-screen">
-      <HeaderBar />
-      <PreviewContainer />
-      <Toaster position="bottom-right"></Toaster>
-    </div>
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
