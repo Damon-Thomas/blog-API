@@ -31,6 +31,9 @@ export default function BlogPreviewContainer() {
 
         if (response.ok) {
           const data = await response.json();
+
+          console.log("load complete");
+
           console.log("Data", data);
           setPosts(data);
         } else {
@@ -39,7 +42,9 @@ export default function BlogPreviewContainer() {
       } catch (error) {
         setError("An error occurred while fetching posts");
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
       }
     }
 
@@ -47,7 +52,24 @@ export default function BlogPreviewContainer() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-full w-full flex justify-center items-center justify-self-center">
+        <svg
+          className="animate-spin h-24 w-24 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+        </svg>
+      </div>
+    );
   }
 
   if (error) {

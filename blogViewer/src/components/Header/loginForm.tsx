@@ -58,9 +58,7 @@ export function LogInForm() {
       setFailure(true);
     } else {
       setFailure(false);
-      console.log("Token", json.token);
       localStorage.setItem("token", json.token);
-      console.log("storage token", localStorage.getItem("token"));
       localStorage.setItem(
         "modernMurmurUsername",
         JSON.stringify(json.user.username)
