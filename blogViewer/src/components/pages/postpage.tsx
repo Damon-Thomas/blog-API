@@ -70,9 +70,12 @@ export default function PostPage() {
   }
 
   return (
-    <div className="blogPost">
-      <h1>{postInfo.post.title}</h1>
-      <p className="author">{postInfo.author.username}</p>
+    <div className="blogPost box-border w-[100%-80px] h-full p-2 mt-4 md:p-8 md:m-12 flex flex-col bg-white text-darkprimary border-2 border-primary rounded-lg ">
+      <h1 className="text-xl md:text-4xl font-bold ">{postInfo.post.title}</h1>
+      <p className="author py-2">
+        Written By:{" "}
+        <span className="font-bold pl-4">{postInfo.author.username}</span>
+      </p>
       <p>{postInfo.post.content}</p>
     </div>
   );
