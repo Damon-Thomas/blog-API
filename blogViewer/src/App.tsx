@@ -12,12 +12,16 @@ import NotFound from "./components/pages/404.tsx";
 
 //layout
 import Layout from "./components/pages/layout.tsx";
+import PostPage from "./components/BlogPreviews/fullBlogPage.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromChildren(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
-      <Route path="post" element={<Post />} />
+      <Route path="post" element={<Post />}>
+        <Route path=":id" element={<PostPage />} />
+      </Route>
+
       <Route path="*" element={<NotFound />} />
     </Route>
   )

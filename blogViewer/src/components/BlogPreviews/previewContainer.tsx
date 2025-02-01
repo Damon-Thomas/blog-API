@@ -14,7 +14,7 @@ interface Post {
 }
 
 export default function BlogPreviewContainer() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -43,8 +43,9 @@ export default function BlogPreviewContainer() {
         setError("An error occurred while fetching posts");
       } finally {
         setTimeout(() => {
+          // Simulate a delay
           setLoading(false);
-        }, 3000);
+        }, 1000);
       }
     }
 
@@ -62,9 +63,9 @@ export default function BlogPreviewContainer() {
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
           <path d="M21 12a9 9 0 1 1-6.219-8.56" />
         </svg>
@@ -80,7 +81,7 @@ export default function BlogPreviewContainer() {
     <div className="blogPreviewContainer flex flex-col ">
       <div className="blogPreviews grid grid-cols-1 sm:grid-cols-2  w-full gap-4 py-4 px-2 md:px-6">
         {posts.map((post) => (
-          <a href={`/post`} key={post.id}>
+          <a href={`/post/${post.id}`} key={post.id}>
             <BlogPreview
               title={post.title}
               content={post.content}

@@ -2,18 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
-  --primary: #736A3D;
-  --darkprimary: #0D0C07;
-  --lightprimary: #B9AE79;
-  --secondary: #F2C14E;
-  --lightsecondary: #FCF2D9;
-  --red: #C97064;
+  --primary: #736a3d;
+  --darkprimary: #0d0c07;
+  --lightprimary: #b9ae79;
+  --secondary: #f2c14e;
+  --lightsecondary: #fcf2d9;
+  --red: #c97064;
   --warning: #4f1810;
-  --grey: #88A0A8;
-  --light: #E6FAFC;
-  --opaqueWhite: rgba(255, 255, 255, 0.90);
+  --grey: #88a0a8;
+  --light: #e6fafc;
+  --opaqueWhite: rgba(255, 255, 255, 0.9);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -76,10 +75,10 @@ button:focus-visible {
 }
 
 .form-item {
-  margin-top: 0px !important; 
+  margin-top: 0px !important;
 }
 .margintopsmall {
-  margin-top: 3px !important; 
+  margin-top: 3px !important;
   margin-bottom: 3px !important;
 }
 
