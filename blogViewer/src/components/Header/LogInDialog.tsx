@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -10,14 +10,24 @@ import { LogInForm } from "./loginForm";
 
 export default function LogInDialog() {
   return (
-    <Dialog >
+    <Dialog>
       <DialogTrigger asChild>
-        <Button onClick={(e) => e.stopPropagation()} size={"lg"} variant={"default"}>
+        <Button
+          onClick={(e) => e.stopPropagation()}
+          size={"lg"}
+          variant={"default"}
+        >
           Log In
         </Button>
       </DialogTrigger>
-      <DialogContent aria-describedby="log-in-dialog-description">
-        <DialogTitle className="text-4xl font-bold text-darkprimary">Log In</DialogTitle>
+      <DialogContent
+        aria-describedby="log-in-dialog-description"
+        onEscapeKeyDown={(e) => e.preventDefault()}
+        onPointerDownOutside={(e) => e.preventDefault()}
+      >
+        <DialogTitle className="text-4xl font-bold text-darkprimary">
+          Log In
+        </DialogTitle>
         <DialogDescription id="log-in-dialog-description">
           Please enter your username and password to log in.
         </DialogDescription>

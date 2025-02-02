@@ -37,6 +37,7 @@ export default function PostPage() {
       } finally {
         setTimeout(() => {
           // Simulate a delay
+          console.log("loading complete", postInfo);
           setLoading(false);
         }, 1000);
       }
@@ -70,13 +71,43 @@ export default function PostPage() {
   }
 
   return (
-    <div className="blogPost box-border w-[100%-80px] h-full p-2 mt-4 md:p-8 md:m-12 flex flex-col bg-white text-darkprimary border-2 border-primary rounded-lg ">
-      <h1 className="text-xl md:text-4xl font-bold ">{postInfo.post.title}</h1>
-      <p className="author py-2">
-        Written By:{" "}
-        <span className="font-bold pl-4">{postInfo.author.username}</span>
-      </p>
-      <p>{postInfo.post.content}</p>
+    <div className="postypost flex flex-col w-[100%-80px] items-center h-full">
+      <div className="blogPost box-border w-full mt-4  md:m-12 flex flex-col bg-white text-darkprimary  rounded-sm ">
+        <div className="postHead px-2 pt-2 md:px-8 md:pt-8 border-b-2 border-secondary">
+          <h1 className="text-xl md:text-4xl font-bold pb-2">
+            {postInfo.post.title}
+          </h1>
+        </div>
+        <div className="postContent p-2 mb-4 md:p-8 ">
+          <p>{postInfo.post.content}</p>
+        </div>
+        <div className="postFoot p-2 md:p-4 flex justify-between items-center flex-wrap ">
+          <p className="postauthor text-sm font-bold text-primary">
+            {postInfo.author.username}
+          </p>
+          <p className="lastUpdate text-sm text-darkprimary">
+            Last Updated:{" "}
+            <span className="text-darkprimary">
+              {new Date(postInfo.post.updatedAt).toDateString()}
+            </span>
+          </p>
+        </div>
+      </div>
+      <div className="comments box-border w-full mt-4  md:m-12 flex flex-col bg-white text-darkprimary  rounded-sm">
+        <div className="commentHead px-2 pt-2 md:px-8 md:pt-8 border-b-2 border-primary">
+          <h2 className="text-sm md:text-sm font-bold pb-2">Comments</h2>
+        </div>
+        <div className="commentContent p-2 mb-4 md:p-8 ">
+          {postInfo.comments.map((comment) => (
+            <div className="comment flex flex-col gap-2 md:gap-4">
+              <p className="commentAuthor font-bold text-primary">
+                @{comment.username}
+              </p>
+              <p className="commentContent text-sm">{comment.content}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

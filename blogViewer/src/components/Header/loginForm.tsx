@@ -68,7 +68,9 @@ export function LogInForm() {
       });
       setLoggedIn(true);
       console.log("Logged in");
+
       if (closeRef.current) {
+        console.log("clicking closeRef");
         closeRef.current.click();
       }
     }
@@ -76,7 +78,16 @@ export function LogInForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        onKeyDown={(e) => {
+          e.stopPropagation();
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className="space-y-8"
+      >
         <FormDescription className="mb-4">
           Log in to your account to access your dashboard, manage your posts,
           and leave comments.
@@ -127,7 +138,7 @@ export function LogInForm() {
           Log In
         </Button>
         <DialogPrimitive.Close asChild>
-          <button ref={closeRef} style={{ display: "none" }} />
+          <button type="button" ref={closeRef} style={{ display: "none" }} />
         </DialogPrimitive.Close>
       </form>
     </Form>
