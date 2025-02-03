@@ -1,4 +1,4 @@
-import BlogPreviewContainer from "../BlogPreviews/previewContainer.tsx";
+import BlogPreviewContainer from "../Blog/previewContainer.tsx";
 
 function Home() {
   return <BlogPreviewContainer />;

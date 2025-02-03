@@ -7,20 +7,18 @@ import {
   Route,
   createRoutesFromChildren,
 } from "react-router-dom";
-import Post from "./components/pages/postpage.tsx";
+import PostPage from "./components/pages/postpage.tsx";
 import NotFound from "./components/pages/404.tsx";
 
 //layout
 import Layout from "./components/pages/layout.tsx";
-import PostPage from "./components/BlogPreviews/fullBlogPage.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromChildren(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
-      <Route path="post" element={<Post />}>
-        <Route path=":id" element={<PostPage />} />
-      </Route>
+
+      <Route path="post/:id" element={<PostPage />} />
 
       <Route path="*" element={<NotFound />} />
     </Route>
