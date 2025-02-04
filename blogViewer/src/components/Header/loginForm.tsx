@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,9 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { useAuth } from "@/context/AuthContext";
+import { contextLogin, CurrentUserContext } from "@/context/AuthContext";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -28,9 +27,9 @@ const formSchema = z.object({
 });
 
 export function LogInForm() {
-  const [failure, setFailure] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const { setLoggedIn } = useAuth();
+  const [failure, setFailure] = useState(false);
+  const { setUser } = useContext(CurrentUserContext);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,40 +39,21 @@ export function LogInForm() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const response = await fetch(
-      `${import.meta.env.VITE_HOST_URL}/users/login`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      }
-    );
+  async function onSubmit(values: z.infer<typeof formSchema>, e: any) {
+    e.preventDefault();
 
-    const json = await response.json();
-    console.log("JSON", json);
-    if (json.failure) {
+    const response = await contextLogin(values, setUser);
+    if (response.failure) {
+      console.log("failure");
       setFailure(true);
-    } else {
-      setFailure(false);
-      localStorage.setItem("token", json.token);
-      localStorage.setItem(
-        "modernMurmurUsername",
-        JSON.stringify(json.user.username)
-      );
-      toast(`Logged in as user: ${json.user.username}`, {
-        position: "bottom-right",
-      });
-      setLoggedIn(true);
-      console.log("Logged in");
-
-      if (closeRef.current) {
-        console.log("clicking closeRef");
-        closeRef.current.click();
-      }
+      return;
     }
+    console.log("res", response);
+    if (closeRef.current) {
+      console.log("clicking closeRef");
+      closeRef.current.click();
+    }
+    return response;
   }
 
   return (

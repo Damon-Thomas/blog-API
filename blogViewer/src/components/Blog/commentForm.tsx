@@ -1,7 +1,8 @@
 // "use client";
 
+import { CurrentUserContext } from "@/context/AuthContext";
 import { loggedInVerifier } from "@/userControls";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // import React, { useState, useRef, useEffect } from "react";
 // import { zodResolver } from "@hookform/resolvers/zod";
@@ -168,14 +169,7 @@ import { useEffect, useState } from "react";
 // }
 
 export default function CommentForm() {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    async function getUser() {
-      const userInfo = await loggedInVerifier();
-      setUser(userInfo);
-    }
-    getUser();
-  }, []);
+  const { user } = useContext(CurrentUserContext);
 
   return (
     <div>

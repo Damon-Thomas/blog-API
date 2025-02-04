@@ -17,9 +17,7 @@ const router = createBrowserRouter(
   createRoutesFromChildren(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
-
       <Route path="post/:id" element={<PostPage />} />
-
       <Route path="*" element={<NotFound />} />
     </Route>
   )

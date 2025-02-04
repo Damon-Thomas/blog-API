@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-// dotenv.config(); 
+// dotenv.config();
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -18,7 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { useAuth } from "@/context/AuthContext";
+import { contextSignup, CurrentUserContext } from "@/context/AuthContext";
 
 const formSchema = z
   .object({
@@ -34,9 +34,9 @@ const formSchema = z
   });
 
 export function SignUpForm() {
-  const [failure, setFailure] = useState(false);
-  const { setLoggedIn } = useAuth();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const [failure, setFailure] = useState(false);
+  const { setUser } = useContext(CurrentUserContext);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,34 +47,29 @@ export function SignUpForm() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const response = await fetch(`${import.meta.env.VITE_HOST_URL}/users/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
-
-    const json = await response.json();
-    console.log("JSON", json);
-    if (json.failure) {
+  async function onSubmit(values: z.infer<typeof formSchema>, e: any) {
+    e.preventDefault();
+    const response = await contextSignup(values, setUser);
+    if (response.failure) {
+      console.log("failure");
       setFailure(true);
-    } else {
-      setFailure(false);
-      localStorage.setItem("token", json.token);
-      localStorage.setItem("modernMurmurUsername", JSON.stringify(json.user.username));
-      setLoggedIn(true);
-      toast(`Sign up successful! Logged in as user: ${json.user.username}`, { position: "bottom-right" });
-      if (closeRef.current) {
-        closeRef.current.click();
-      }
+      return;
     }
+    console.log("res", response);
+    if (closeRef.current) {
+      console.log("clicking closeRef");
+      closeRef.current.click();
+    }
+    return response;
   }
 
   return (
-    <Form  {...form}>
-      <form onClick={(e) => e.stopPropagation()} onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <Form {...form}>
+      <form
+        onClick={(e) => e.stopPropagation()}
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8"
+      >
         <FormDescription className="mb-4">
           Sign up for an account to comment, make blog posts, and participate in
           our community.
@@ -143,7 +138,9 @@ export function SignUpForm() {
           )}
         </FormMessage>
 
-        <Button onClick={(e) => e.stopPropagation()} type="submit">Submit</Button>
+        <Button onClick={(e) => e.stopPropagation()} type="submit">
+          Submit
+        </Button>
         <DialogPrimitive.Close asChild>
           <button ref={closeRef} style={{ display: "none" }} />
         </DialogPrimitive.Close>
