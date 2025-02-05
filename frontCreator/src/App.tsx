@@ -1,15 +1,29 @@
-import { User } from "lucide-react";
-import "./App.css";
+import "./App";
+import "./index.css";
 import Layout from "./app/layout";
-import UserPosts from "./app/userPosts";
+import NotFound from "./app/notFound";
+import Home from "./app/home";
+
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  createRoutesFromChildren,
+} from "react-router-dom";
+
+const router = createBrowserRouter(
+  createRoutesFromChildren(
+    <>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </>
+  )
+);
 
 function App() {
-  return (
-    <div className="main">
-      {/* <Layout children={null}></Layout> */}
-      <UserPosts />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

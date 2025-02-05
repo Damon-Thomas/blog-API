@@ -143,7 +143,7 @@ export function SignUpForm() {
           )}
         </FormMessage>
 
-        <Button onClick={(e) => e.stopPropagation()} type="submit">
+        <Button onClick={(e) => e.stopPropagation()} type="submit" size={"sm"}>
           Submit
         </Button>
         <DialogPrimitive.Close asChild>

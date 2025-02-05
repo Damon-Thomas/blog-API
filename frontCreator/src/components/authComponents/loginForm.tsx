@@ -4,7 +4,6 @@ import { useState, useRef, useContext } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-// dotenv.config();
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { contextLogin, CurrentUserContext } from "@/context/AuthContext";
+import { contextLogin, CurrentUserContext } from "@/context/authContext";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -116,7 +115,7 @@ export function LogInForm() {
             <span className="opacity-0">Placeholder</span>
           )}
         </FormMessage>
-        <Button onClick={(e) => e.stopPropagation()} type="submit" size={"sm"}>
+        <Button onClick={(e) => e.stopPropagation()} type="submit">
           Log In
         </Button>
         <DialogPrimitive.Close asChild>

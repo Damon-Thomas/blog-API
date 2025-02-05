@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,17 +16,29 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { contextLogin, CurrentUserContext } from "@/context/AuthContext";
+import { contextSignup, CurrentUserContext } from "@/context/authContext";
 
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  password: z.string().min(1, { message: "Required" }),
-});
+const formSchema = z
+  .object({
+    username: z
+      .string()
+      .min(2, {
+        message: "Username must be at least 2 characters.",
+      })
+      .max(20, {
+        message: "Username must be less than 20 characters.",
+      }),
+    password: z.string().min(1, { message: "Required" }),
+    confirmPassword: z.string().min(1, { message: "Required" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords must match",
+    path: ["confirmPassword"], // path of error
+  });
 
-export function LogInForm() {
+export function SignUpForm() {
   const closeRef = useRef<HTMLButtonElement>(null);
   const [failure, setFailure] = useState(false);
   const { setUser } = useContext(CurrentUserContext);
@@ -36,13 +48,13 @@ export function LogInForm() {
     defaultValues: {
       username: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>, e: any) {
     e.preventDefault();
-
-    const response = await contextLogin(values, setUser);
+    const response = await contextSignup(values, setUser);
     if (response.failure) {
       console.log("failure");
       setFailure(true);
@@ -59,18 +71,13 @@ export function LogInForm() {
   return (
     <Form {...form}>
       <form
+        onClick={(e) => e.stopPropagation()}
         onSubmit={form.handleSubmit(onSubmit)}
-        onKeyDown={(e) => {
-          e.stopPropagation();
-        }}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
         className="space-y-8"
       >
         <FormDescription className="mb-4">
-          Log in to your account to access your dashboard, manage your posts,
-          and leave comments.
+          Sign up for an account to comment, make blog posts, and participate in
+          our community.
         </FormDescription>
         <FormField
           control={form.control}
@@ -85,9 +92,7 @@ export function LogInForm() {
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="m-0">
-                {fieldState.error?.message}
-              </FormMessage>
+              <FormMessage>{fieldState.error?.message}</FormMessage>
             </FormItem>
           )}
         />
@@ -109,18 +114,40 @@ export function LogInForm() {
             </FormItem>
           )}
         />
-        <FormMessage id="failure-message">
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field, fieldState }) => (
+            <FormItem>
+              <FormLabel className="text-darkprimary">
+                Confirm Password
+              </FormLabel>
+              <FormControl>
+                <Input
+                  onClick={(e) => e.stopPropagation()}
+                  type="password"
+                  placeholder="password"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage>{fieldState.error?.message}</FormMessage>
+            </FormItem>
+          )}
+        />
+
+        <FormMessage onClick={(e) => e.stopPropagation()} id="failure-message">
           {failure ? (
-            "Invalid login. Please try again."
+            "Username already exists. Please try another."
           ) : (
             <span className="opacity-0">Placeholder</span>
           )}
         </FormMessage>
-        <Button onClick={(e) => e.stopPropagation()} type="submit" size={"sm"}>
-          Log In
+
+        <Button onClick={(e) => e.stopPropagation()} type="submit">
+          Submit
         </Button>
         <DialogPrimitive.Close asChild>
-          <button type="button" ref={closeRef} style={{ display: "none" }} />
+          <button ref={closeRef} style={{ display: "none" }} />
         </DialogPrimitive.Close>
       </form>
     </Form>
