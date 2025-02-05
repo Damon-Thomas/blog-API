@@ -60,7 +60,7 @@ export default function CommentForm() {
             onClick={(e) => {
               e.stopPropagation();
             }}
-            className="flex flex-col"
+            className="flex flex-col px-2 md:px-8 p-2 md:p-4"
           >
             {/* <FormDescription className="mb-4">
               Leave a comment below!
@@ -71,7 +71,7 @@ export default function CommentForm() {
                   control={form.control}
                   name="content"
                   render={({ field, fieldState }) => (
-                    <FormItem className="w-full px-2 md:px-8 pt-2 md:pt-4">
+                    <FormItem className="w-full">
                       <div className="labelANDError flex justify-between flex-wrap align-top">
                         <FormLabel className="text-darkprimary flex align-middle">
                           Leave Comment:
@@ -101,7 +101,7 @@ export default function CommentForm() {
               <Button
                 onClick={(e) => e.stopPropagation()}
                 type="submit"
-                className="mx-2 md:mx-8 mt:0"
+                className=" mt:0"
               >
                 Leave Comment
               </Button>
@@ -109,7 +109,9 @@ export default function CommentForm() {
           </form>
         </Form>
       ) : (
-        <p>Log in to leave a comment!</p>
+        <p className="flex px-2 md:px-8 p-2 md:p-4 text-md font-bold bg-lightsecondary rounded-md">
+          Log in to leave a comment!
+        </p>
       )}
     </div>
   );

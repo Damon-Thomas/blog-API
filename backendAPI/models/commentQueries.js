@@ -6,6 +6,9 @@ const getCommentsForPost = async (postId) => {
       where: {
         postId: postId,
       },
+      orderBy: {
+        updatedAt: "desc",
+      },
     });
     return comments;
   } catch (error) {

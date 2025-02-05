@@ -1,13 +1,39 @@
 import { useEffect, useState } from "react";
 import { loggedInVerifier } from "@/userControls";
-import { DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "../ui/dropdown-menu";
+import {
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "../ui/dropdown-menu";
 import LogoutButton from "./LogoutButton";
 import ToCreatePage from "./ToCreatePage";
 import SignUpDialog from "./SignUpDialog";
 import LogInDialog from "./LogInDialog";
+import { Link, useParams } from "react-router-dom";
+import HomeIcon from "./HomeIcon";
+import { Button } from "../ui/button";
 
 export default function DropdownHeaderContent() {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
+  const { id } = useParams();
+
+  function MakeHomeIcon() {
+    if (id != undefined) {
+      return (
+        <>
+          <DropdownMenuLabel>Navigation</DropdownMenuLabel>
+          <DropdownMenuItem>
+            <Link to="/">
+              <Button variant={"ghost"} size={"lg"}>
+                Home
+              </Button>
+            </Link>
+          </DropdownMenuItem>
+        </>
+      );
+    }
+    return;
+  }
 
   useEffect(() => {
     async function checkLoggedIn() {
@@ -28,6 +54,7 @@ export default function DropdownHeaderContent() {
 
   return loggedIn ? (
     <>
+      <MakeHomeIcon />
       <DropdownMenuLabel>Authentication</DropdownMenuLabel>
       <DropdownMenuItem onClick={(e) => e.stopPropagation()}>
         <LogoutButton variant={"secondary"} />
@@ -51,6 +78,3 @@ export default function DropdownHeaderContent() {
     </>
   );
 }
-
-
-
