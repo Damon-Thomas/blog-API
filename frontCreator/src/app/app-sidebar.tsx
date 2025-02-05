@@ -1,5 +1,7 @@
+import { useLocation, Link } from "react-router-dom";
 import {
-  Settings,
+  LayoutDashboard,
+  LogIn,
   SquarePen,
   AppWindow,
   MessageCircleCode,
@@ -17,61 +19,91 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import App from "@/App";
-
-// Menu items.
-const items = [
-  {
-    title: "Create Post",
-    url: "#",
-    icon: SquarePen,
-  },
-  {
-    title: "My Posts",
-    url: "#",
-    icon: AppWindow,
-  },
-  {
-    title: "My Comments",
-    url: "#",
-    icon: MessageCircleCode,
-  },
-  {
-    title: "Modern Murmur",
-    url: "#",
-    icon: BookOpenText,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-];
+import { contextLogout, CurrentUserContext } from "@/context/authContext";
+import { useContext } from "react";
+import { url } from "inspector";
 
 export function AppSidebar() {
+  const { setUser } = useContext(CurrentUserContext);
+  const location = useLocation();
+
+  const items = [
+    {
+      title: "Dashboard",
+      url: "/",
+      icon: LayoutDashboard,
+    },
+    {
+      title: "Create Post",
+      url: "/create",
+      icon: SquarePen,
+    },
+    {
+      title: "My Posts",
+      url: "#",
+      icon: AppWindow,
+    },
+    {
+      title: "My Comments",
+      url: "#",
+      icon: MessageCircleCode,
+    },
+    {
+      title: "Modern Murmur",
+      url: `${import.meta.env.VITE_OTHER_HOST_URL}`,
+      icon: BookOpenText,
+    },
+    {
+      title: "Logout",
+      url: "#",
+      onClick: () => contextLogout(setUser),
+      icon: LogIn,
+    },
+  ];
+
   return (
-    <Sidebar>
-      <SidebarHeader title="Navigation">
-        <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Navigation</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {items.map((item) => (
+    <Sidebar variant="floating" collapsible="icon">
+      <SidebarHeader className="items-start">
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarGroupLabel className="px-2">Navigation</SidebarGroupLabel>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {items.map((item) => {
+                const isActive = item.url
+                  ? location.pathname === item.url
+                  : false;
+                return (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <a href={item.url}>
-                        <item.icon />
-                        <span>{item.title}</span>
-                      </a>
+                      {item.url ? (
+                        <Link
+                          data-activity={isActive}
+                          to={item.url}
+                          className="p-0"
+                        >
+                          <item.icon />
+                          <span>{item.title}</span>
+                        </Link>
+                      ) : (
+                        <button data-activity={isActive} onClick={item.onClick}>
+                          <item.icon />
+                          <span>{item.title}</span>
+                        </button>
+                      )}
                     </SidebarMenuButton>
                   </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
-      </SidebarHeader>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
     </Sidebar>
   );
 }

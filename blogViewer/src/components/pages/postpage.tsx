@@ -71,5 +71,5 @@ export default function PostPage() {
     return <div>{error}</div>;
   }
 
-  return <PostContainer postInfo={postInfo} setPostInfo={setPostInfo} />;
+  return <PostContainer postInfo={postInfo} />;
 }

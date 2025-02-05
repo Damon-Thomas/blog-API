@@ -47,7 +47,10 @@ export const contextLogin = async (userData: any, setUser: any) => {
     return { error: json.error, failure: true };
   } else {
     localStorage.setItem("token", json.token);
+    console.log("setting user", json);
     setUser(json.user);
+    console.log("toast next");
+
     toast(`Logged in as user: ${json.user.username}`, {
       position: "bottom-right",
     });
@@ -56,11 +59,13 @@ export const contextLogin = async (userData: any, setUser: any) => {
 };
 
 export const contextLogout = (setUser: any) => {
+  console.log("logging out...");
   localStorage.removeItem("token");
-  setUser(null);
+  console.log("toast next");
   toast("Logged out", {
     position: "bottom-right",
   });
+  setUser(null);
 };
 
 export const contextSignup = async (userData: any, setUser: any) => {

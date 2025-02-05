@@ -5,6 +5,7 @@
 :root {
   --primary: #736a3d;
   --darkprimary: #0d0c07;
+
   --lightprimary: #b9ae79;
   --secondary: #f2c14e;
   --lightsecondary: #fcf2d9;
@@ -29,11 +30,11 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--light);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--secondary);
 }
 
 body {
@@ -68,39 +69,82 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+a[data-activity="true"] > svg,
+a[data-activity="true"] > span {
+  color: var(--secondary);
+}
+
+a > span {
+  background-color: transparent;
+}
+
+/* .DropdownMenuContent {
+  background-color: #ffffff;
+  border: 1px solid var(--darkprimary);
+  margin-right: 32px;
+} */
+
+.form-item {
+  margin-top: 0px !important;
+}
+.margintopsmall {
+  margin-top: 3px !important;
+  margin-bottom: 3px !important;
+}
+
+#failure-message {
+  margin-top: 0px;
+}
+
+.layoutMain {
+  scrollbar-color: var(--secondary) var(--primary);
+}
+
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--grey);
+    background-color: var(--light);
   }
   a:hover {
-    color: #747bff;
+    color: var(--light);
   }
   button {
-    background-color: #f9f9f9;
+    background-color: var(--light);
   }
 }
 
 @layer base {
   :root {
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-background: 50, 30%, 4%;
+    --sidebar-foreground: 43, 85%, 92%;
+    --sidebar-primary: 42, 86%, 63%;
+    --sidebar-primary-foreground: 43, 85%, 92%;
+    /* highlight navtext */
+    --sidebar-accent: 50, 31%, 35%;
+    --sidebar-accent-foreground: 0, 0%, 100%;
+    --sidebar-border: 43, 85%, 92%;
+    --sidebar-ring: 195, 16%, 60%;
+
+    /* --primary: hsl(50, 31%, 35%);
+      --darkprimary: hsl(50, 30%, 4%);
+      --lightprimary: hsl(50, 31%, 60%);
+      --secondary: hsl(42, 86%, 63%);
+      --lightsecondary: hsl(43, 85%, 92%);
+      --red: hsl(7, 48%, 59%);
+      --warning: hsl(8, 66%, 19%);
+      --grey: hsl(195, 16%, 60%);
+      --light: hsl(185, 79%, 95%); */
+  }
+
+  /* .dark {
+    --sidebar-background: var(--light);
+    --sidebar-foreground: var(--darkprimary);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--light);
+    --sidebar-accent: var(--secondary);
     --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-  .dark {
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+    --sidebar-border: var(--secondary);
+    --sidebar-ring: var(--secondary);
+  } */
 }
