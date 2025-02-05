@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { loggedInVerifier } from "@/userControls";
+import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 type AuthContextType = {
@@ -13,6 +14,13 @@ export const CurrentUserContext = createContext<AuthContextType>({
 
 export function AuthProvider({ children }: any) {
   const [user, setUser] = useState(null);
+  useEffect(() => {
+    async function verifyUser() {
+      const user = await loggedInVerifier();
+      setUser(user);
+    }
+    verifyUser();
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={{ user, setUser }}>
@@ -36,7 +44,7 @@ export const contextLogin = async (userData: any, setUser: any) => {
   const json = await response.json();
 
   if (json.failure) {
-    return json;
+    return { error: json.error, failure: true };
   } else {
     localStorage.setItem("token", json.token);
     setUser(json.user);
@@ -66,8 +74,9 @@ export const contextSignup = async (userData: any, setUser: any) => {
 
   const json = await response.json();
   console.log("JSON", json);
-  if (json.failure) {
-    return json;
+  if (json.errors || json.failure) {
+    console.log("failure");
+    return { error: json.error, failure: true };
   } else {
     localStorage.setItem("token", json.token);
     setUser(json.user);

@@ -85,7 +85,9 @@ export function LogInForm() {
                   {...field}
                 />
               </FormControl>
-              <FormMessage>{fieldState.error?.message}</FormMessage>
+              <FormMessage className="m-0">
+                {fieldState.error?.message}
+              </FormMessage>
             </FormItem>
           )}
         />

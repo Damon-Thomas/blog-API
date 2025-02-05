@@ -82,6 +82,10 @@ button:focus-visible {
   margin-bottom: 3px !important;
 }
 
+#failure-message {
+  margin-top: 0px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

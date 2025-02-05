@@ -1,8 +1,8 @@
-import CommentSection from "./commentContainer";
+import CommentSection from "./commentSection";
 
 export default function BlogPost({ postInfo }: any) {
   return (
-    <div className="blogPost box-border w-full mt-4  md:m-12 flex flex-col bg-white text-darkprimary  rounded-sm ">
+    <div className="blogPost box-border w-full mt-4  flex flex-col bg-white text-darkprimary  rounded-sm ">
       <div className="postHead px-2 pt-2 md:px-8 md:pt-8 border-b-2 border-secondary">
         <h1 className="text-xl md:text-4xl font-bold pb-2">
           {postInfo.post.title}
