@@ -42,7 +42,13 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow: hidden;
 }
+
+/* .layoutWideContainer {
+  scrollbar-gutter: stable;
+  overflow: hidden;
+} */
 
 h1 {
   font-size: 3.2em;
@@ -84,6 +90,10 @@ button:focus-visible {
 
 #failure-message {
   margin-top: 0px;
+}
+
+.layoutMain {
+  scrollbar-color: var(--secondary) var(--primary);
 }
 
 @media (prefers-color-scheme: light) {
