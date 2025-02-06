@@ -61,7 +61,6 @@ export const contextLogin = async (userData: any, setUser: any) => {
 export const contextLogout = (setUser: any) => {
   console.log("logging out...");
   localStorage.removeItem("token");
-  console.log("toast next");
   toast("Logged out", {
     position: "bottom-right",
   });

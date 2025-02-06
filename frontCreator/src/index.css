@@ -5,7 +5,6 @@
 :root {
   --primary: #736a3d;
   --darkprimary: #0d0c07;
-
   --lightprimary: #b9ae79;
   --secondary: #f2c14e;
   --lightsecondary: #fcf2d9;
@@ -17,11 +16,9 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -62,11 +59,17 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: pink;
 }
-button:focus,
+/* button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+} */
+
+li[data-sidebar="menu-item"] > button {
+  background-color: transparent;
+  color: var(--light);
+  border: none;
 }
 
 a[data-activity="true"] > svg,
@@ -120,7 +123,6 @@ a > span {
     --sidebar-foreground: 43, 85%, 92%;
     --sidebar-primary: 42, 86%, 63%;
     --sidebar-primary-foreground: 43, 85%, 92%;
-    /* highlight navtext */
     --sidebar-accent: 50, 31%, 35%;
     --sidebar-accent-foreground: 0, 0%, 100%;
     --sidebar-border: 43, 85%, 92%;

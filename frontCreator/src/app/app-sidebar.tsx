@@ -40,12 +40,12 @@ export function AppSidebar() {
     },
     {
       title: "My Posts",
-      url: "#",
+      url: "/posts",
       icon: AppWindow,
     },
     {
       title: "My Comments",
-      url: "#",
+      url: "/comments",
       icon: MessageCircleCode,
     },
     {
@@ -55,8 +55,10 @@ export function AppSidebar() {
     },
     {
       title: "Logout",
-      url: "#",
-      onClick: () => contextLogout(setUser),
+      onClick: () => {
+        console.log("test");
+        contextLogout(setUser);
+      },
       icon: LogIn,
     },
   ];
