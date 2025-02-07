@@ -34,7 +34,7 @@ export function AppSidebar() {
     },
     {
       title: "Create Post",
-      url: "/create",
+      url: "/postCreator",
       icon: SquarePen,
     },
     {

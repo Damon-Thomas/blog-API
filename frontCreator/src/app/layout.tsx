@@ -18,7 +18,7 @@ export default function Layout() {
         <SidebarProvider>
           <AppSidebar />
           <SidebarTrigger />
-          <main className="flex w-full h-full">
+          <main className="flex w-full h-full pr-10">
             <Outlet />
           </main>
         </SidebarProvider>

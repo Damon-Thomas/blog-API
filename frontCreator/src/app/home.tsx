@@ -133,7 +133,7 @@ export default function Home() {
   console.log("LatPost", lastPost);
 
   return (
-    <div className="flex w-full h-full flex-col justify-start p-4 gap-6 md:gap-12 pr-14 ">
+    <div className="flex w-full h-full flex-col justify-start p-4 gap-6 md:gap-12  ">
       <div className="head">
         <h1 className="text-2xl md:text-4xl text-center">Dashboard</h1>
         <p>Welcome {userInfo.user.username}</p>
@@ -196,9 +196,9 @@ export default function Home() {
             {lastComment ? (
               <div className="postHighlightCard">
                 <h6 className="highlightTitle font-bold text-lg">
-                  {lastComment.content}
+                  {lastComment.content.substring(0, 150)}...
                 </h6>
-                <p>{lastComment.content.substring(0, 100)}...</p>
+                <p className="">{new Date(lastCommentDate).toDateString()}</p>
               </div>
             ) : (
               <div className="postHighlightCard">
