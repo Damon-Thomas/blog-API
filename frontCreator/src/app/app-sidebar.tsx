@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
   LogIn,
@@ -7,6 +7,7 @@ import {
   MessageCircleCode,
   BookOpenText,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 import {
   Sidebar,
@@ -21,11 +22,9 @@ import {
 } from "@/components/ui/sidebar";
 import { contextLogout, CurrentUserContext } from "@/context/authContext";
 import { useContext } from "react";
-import { url } from "inspector";
 
 export function AppSidebar() {
   const { setUser } = useContext(CurrentUserContext);
-  const location = useLocation();
 
   const items = [
     {
@@ -68,7 +67,9 @@ export function AppSidebar() {
       <SidebarHeader className="items-start">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarGroupLabel className="px-2">Navigation</SidebarGroupLabel>
+            <SidebarGroupLabel className="px-2 text-xl">
+              Navigation
+            </SidebarGroupLabel>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -77,25 +78,40 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => {
-                const isActive = item.url
-                  ? location.pathname === item.url
-                  : false;
                 return (
-                  <SidebarMenuItem key={item.title}>
+                  <SidebarMenuItem
+                    key={item.title}
+                    className="group-data-[collapsible=icon]:px-2 p-1 py-1" // Adjust padding based on state
+                  >
                     <SidebarMenuButton asChild>
                       {item.url ? (
-                        <Link
-                          data-activity={isActive}
+                        <NavLink
+                          className={({ isActive }) =>
+                            cn(
+                              "w-full transition-colors duration-200 flex",
+                              isActive && "active"
+                            )
+                          }
                           to={item.url}
-                          className="p-0"
                         >
-                          <item.icon />
-                          <span>{item.title}</span>
-                        </Link>
+                          <div className="flex items-center gap-3 w-full group-data-[collapsible=icon]:justify-center">
+                            <item.icon className="w-6 h-6 shrink-0 transition-colors" />
+                            <span className="truncate group-data-[collapsible=icon]:hidden text-base transition-colors">
+                              {item.title}
+                            </span>
+                          </div>
+                        </NavLink>
                       ) : (
-                        <button data-activity={isActive} onClick={item.onClick}>
-                          <item.icon />
-                          <span>{item.title}</span>
+                        <button
+                          onClick={item.onClick}
+                          className="w-full transition-colors duration-200 flex"
+                        >
+                          <div className="flex items-center gap-3 w-full group-data-[collapsible=icon]:justify-center">
+                            <item.icon className="w-6 h-6 shrink-0" />
+                            <span className="truncate group-data-[collapsible=icon]:hidden text-base">
+                              {item.title}
+                            </span>
+                          </div>
                         </button>
                       )}
                     </SidebarMenuButton>

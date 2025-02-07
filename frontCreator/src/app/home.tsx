@@ -88,19 +88,59 @@ export default function Home() {
   console.log("User Info", userInfo.user, "Posts", posts, "Comments", comments);
   let userPostComments = 0;
   for (let i = 0; i < posts.length; i++) {
-    console.log("Post", posts[i].Comments.length);
     userPostComments += posts[i].Comments.length;
   }
 
+  let lastPostDate = null;
+  let lastPost = null;
+  for (let i = 0; i < posts.length; i++) {
+    if (lastPostDate === null) {
+      lastPostDate = posts[i].createdAt;
+      lastPost = posts[i];
+    } else {
+      if (posts[i].createdAt > lastPostDate) {
+        lastPostDate = posts[i].createdAt;
+        lastPost = posts[i];
+      }
+    }
+  }
+
+  let mostCommentedPost = null;
+  for (let i = 0; i < posts.length; i++) {
+    if (mostCommentedPost === null) {
+      mostCommentedPost = posts[i];
+    } else {
+      if (posts[i].Comments.length > mostCommentedPost.Comments.length) {
+        mostCommentedPost = posts[i];
+      }
+    }
+  }
+
+  let lastCommentDate = null;
+  let lastComment = null;
+  for (let i = 0; i < comments.length; i++) {
+    if (lastCommentDate === null) {
+      lastCommentDate = comments[i].createdAt;
+      lastComment = comments[i];
+    } else {
+      if (comments[i].createdAt > lastCommentDate) {
+        lastCommentDate = comments[i].createdAt;
+        lastComment = comments[i];
+      }
+    }
+  }
+
+  console.log("LatPost", lastPost);
+
   return (
-    <div className="flex w-full h-full flex-col justify-start p-4">
+    <div className="flex w-full h-full flex-col justify-start p-4 gap-6 md:gap-12 pr-14 ">
       <div className="head">
         <h1 className="text-2xl md:text-4xl text-center">Dashboard</h1>
         <p>Welcome {userInfo.user.username}</p>
       </div>
       <div className="statSection">
-        <h2 className="text-2xl md:text-3xl py-2">Stats</h2>
-        <div className="stats grid gap-4 grid-cols-2 md:grid-cols-3">
+        <h2 className="statHeading">Stats</h2>
+        <div className="stats grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <div className="stat">
             <h3>Your Posts</h3>
             <p>{posts.length}</p>
@@ -112,6 +152,81 @@ export default function Home() {
           <div className="stat">
             <h3>Reader Comments</h3>
             <p>{userPostComments}</p>
+          </div>
+          <div className="stat">
+            <h3>Last Post</h3>
+            {lastPost ? (
+              <p>{new Date(lastPostDate).toDateString()}</p>
+            ) : (
+              <p>No Posts Yet</p>
+            )}
+          </div>
+          <div className="stat">
+            <h3>Last Comment</h3>
+            {lastComment ? (
+              <p>{new Date(lastCommentDate).toDateString()}</p>
+            ) : (
+              <p>No Comments Yet</p>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="highlightSections">
+        <h2 className="statHeading">Highlights</h2>
+        <div className="highlights grid gap-4 lg:gap-x-10 xl:gap-x-14 grid-cols-1 lg:grid-cols-2">
+          <div className="highlight">
+            <h3 className="font-bold pb-2">Last Post</h3>
+            {lastPost ? (
+              <div className="postHighlightCard">
+                <h6 className="highlightTitle font-bold text-lg">
+                  {lastPost.title}
+                </h6>
+                <p className="">{lastPost.content.substring(0, 100)}...</p>
+              </div>
+            ) : (
+              <div className="postHighlightCard">
+                <h6 className="highlightTitle font-bold text-lg">
+                  No Posts Yet
+                </h6>
+              </div>
+            )}
+          </div>
+          <div className="highlight">
+            <h3 className="font-bold pb-2">Last Comment</h3>
+            {lastComment ? (
+              <div className="postHighlightCard">
+                <h6 className="highlightTitle font-bold text-lg">
+                  {lastComment.content}
+                </h6>
+                <p>{lastComment.content.substring(0, 100)}...</p>
+              </div>
+            ) : (
+              <div className="postHighlightCard">
+                <h6 className="highlightTitle font-bold text-lg">
+                  No Comments Yet
+                </h6>
+              </div>
+            )}
+          </div>
+          <div className="highlight lg:col-span-2">
+            <h3 className="font-bold pb-2">Most Commented Post</h3>
+            {mostCommentedPost ? (
+              <div className="popularPostHighlightCard flex flex-col gap-2 justify-between">
+                <div className="blogContent">
+                  <h6 className="highlightTitle font-bold text-lg">
+                    {mostCommentedPost.title}
+                  </h6>
+                  <p>{mostCommentedPost.content.substring(0, 200)}...</p>
+                </div>
+                <p>Comments: {mostCommentedPost?.Comments.length}</p>
+              </div>
+            ) : (
+              <div className="postHighlightCard">
+                <h6 className="highlightTitle font-bold text-lg">
+                  No Posts Yet
+                </h6>
+              </div>
+            )}
           </div>
         </div>
       </div>

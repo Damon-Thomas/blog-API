@@ -1,3 +1,19 @@
 .stat {
-  @apply p-2 bg-darkprimary rounded-md;
+  @apply p-2 md:px-4 bg-darkprimary rounded-md flex flex-col justify-between border-secondary border-2;
+}
+
+.stat h3 {
+  @apply text-white text-lg font-bold;
+}
+
+.postHighlightCard {
+  @apply bg-secondary p-4 rounded-md text-darkprimary min-h-28;
+}
+
+.popularPostHighlightCard {
+  @apply bg-secondary p-4 rounded-md text-darkprimary min-h-36;
+}
+
+.statHeading {
+  @apply text-2xl md:text-3xl border-b-2 border-secondary mb-2 md:mb-4 lg:mb-8;
 }

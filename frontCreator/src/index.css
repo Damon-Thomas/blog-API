@@ -72,8 +72,13 @@ li[data-sidebar="menu-item"] > button {
   border: none;
 }
 
-a[data-activity="true"] > svg,
+/* a[data-activity="true"] > svg,
 a[data-activity="true"] > span {
+  color: var(--secondary);
+} */
+
+a.active > div > svg,
+a.active > div > span {
   color: var(--secondary);
 }
 
