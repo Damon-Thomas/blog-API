@@ -9,7 +9,10 @@ export default function Home() {
       username: "Error Fetching User Info",
     },
   });
-  const [posts, setPosts] = useState([]);
+  interface Post {
+    Comments: any[];
+  }
+  const [posts, setPosts] = useState<Post[]>([]);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -83,11 +86,35 @@ export default function Home() {
   }, []);
 
   console.log("User Info", userInfo.user, "Posts", posts, "Comments", comments);
+  let userPostComments = 0;
+  for (let i = 0; i < posts.length; i++) {
+    console.log("Post", posts[i].Comments.length);
+    userPostComments += posts[i].Comments.length;
+  }
 
   return (
     <div className="flex w-full h-full flex-col justify-start p-4">
-      <h1 className="text-2xl md:text-4xl text-center">Dashboard</h1>
-      <p>Welcome {userInfo.user.username}</p>
+      <div className="head">
+        <h1 className="text-2xl md:text-4xl text-center">Dashboard</h1>
+        <p>Welcome {userInfo.user.username}</p>
+      </div>
+      <div className="statSection">
+        <h2 className="text-2xl md:text-3xl py-2">Stats</h2>
+        <div className="stats grid gap-4 grid-cols-2 md:grid-cols-3">
+          <div className="stat">
+            <h3>Your Posts</h3>
+            <p>{posts.length}</p>
+          </div>
+          <div className="stat">
+            <h3>Your Comments</h3>
+            <p>{comments.length}</p>
+          </div>
+          <div className="stat">
+            <h3>Reader Comments</h3>
+            <p>{userPostComments}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

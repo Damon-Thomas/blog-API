@@ -27,7 +27,7 @@
 
 a {
   font-weight: 500;
-  color: var(--light);
+  color: var(--white);
   text-decoration: inherit;
 }
 a:hover {
@@ -68,7 +68,7 @@ button:focus-visible {
 
 li[data-sidebar="menu-item"] > button {
   background-color: transparent;
-  color: var(--light);
+  color: var(--white);
   border: none;
 }
 

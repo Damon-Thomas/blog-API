@@ -41,6 +41,9 @@ const getMyBlogPosts = async (authorId) => {
       where: {
         authorId: authorId,
       },
+      include: {
+        Comments: true,
+      },
     });
     console.log("filtered Posts", myPosts, authorId);
     return myPosts;

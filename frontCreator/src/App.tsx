@@ -1,4 +1,4 @@
-import "./App";
+import "./App.css";
 import "./index.css";
 import Layout from "./app/layout";
 import NotFound from "./app/notFound";
