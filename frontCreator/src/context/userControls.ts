@@ -1,5 +1,4 @@
 async function loggedInVerifier() {
-  console.log("VERIFIER");
   try {
     const response = await fetch("http://localhost:3000/users/protected", {
       method: "GET",

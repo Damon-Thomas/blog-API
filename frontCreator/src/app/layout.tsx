@@ -11,7 +11,7 @@ import MMredirect from "@/components/authComponents/MMredirect";
 // export default function Layout({ children }: { children: React.ReactNode }) {
 export default function Layout() {
   const { user } = useContext(CurrentUserContext);
-  console.log("USER", user);
+
   return (
     <div className="appWindow w-screen h-screen flex">
       {user ? (

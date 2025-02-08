@@ -14,6 +14,7 @@ import PostCreator from "./app/postCreator";
 import PostsPage from "./app/postsPage";
 import CommentsPage from "./app/commentsPage";
 import PostEditor from "./app/postEditor";
+import CommentEditor from "./app/commentEditor";
 
 const router = createBrowserRouter(
   createRoutesFromChildren(
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
         <Route path="posts" element={<PostsPage />}></Route>
         <Route path="posts/:postId" element={<PostEditor />} />
         <Route path="comments" element={<CommentsPage />} />
+        <Route path="comments/:commentId" element={<CommentEditor />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </>

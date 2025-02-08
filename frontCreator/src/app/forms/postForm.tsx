@@ -25,10 +25,10 @@ const formSchema = z.object({
     message: "Title must be at least 2 characters.",
   }),
   content: z.string().min(1, { message: "Required" }),
-  publish: z.boolean().default(true),
+  published: z.boolean().default(true),
 });
 
-export function PostForm() {
+export function PostForm(post: any = null) {
   const [failure, setFailure] = useState(false);
   const { user, setUser } = useContext(CurrentUserContext);
 
@@ -48,13 +48,14 @@ export function PostForm() {
     if (response.failure) {
       console.log(response.message);
       setFailure(true);
-      return;
     } else {
       console.log("Post created");
       setFailure(false);
     }
     return response;
   }
+
+  console.log("Post HEEEEEEREE", post.post);
 
   return (
     <Form {...form}>
@@ -71,7 +72,9 @@ export function PostForm() {
                 Title
               </FormLabel>
               <FormControl>
-                <Input onClick={(e) => e.stopPropagation()} {...field} />
+                <Input onClick={(e) => e.stopPropagation()} {...field}>
+                  {post ? post.title : ""}
+                </Input>
               </FormControl>
               <FormMessage className="m-0">
                 {fieldState.error?.message}
@@ -90,6 +93,7 @@ export function PostForm() {
               <FormControl>
                 <Textarea
                   onClick={(e) => e.stopPropagation()}
+                  value={post ? post.content : ""}
                   className="w-full h-1/2 font-darkprimary text-lg"
                   rows={7}
                   white-space="pre-wrap"
@@ -102,7 +106,7 @@ export function PostForm() {
         />
         <FormField
           control={form.control}
-          name="publish"
+          name="published"
           render={({ field, fieldState }) => (
             <FormItem className="flex gap-4 items-center">
               <FormLabel className="text-darkprimary font-bold md:text-3xl">
@@ -110,7 +114,7 @@ export function PostForm() {
               </FormLabel>
               <FormControl>
                 <Switch
-                  checked={field.value}
+                  checked={post ? post.published : true}
                   id="publishSwitch"
                   onCheckedChange={field.onChange}
                 />
