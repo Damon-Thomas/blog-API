@@ -82,6 +82,9 @@ const getMyComments = async (username) => {
       where: {
         username: username,
       },
+      orderBy: {
+        updatedAt: "desc",
+      },
     });
     return myComments;
   } catch (error) {

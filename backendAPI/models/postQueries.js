@@ -6,6 +6,9 @@ const getAllBlogPosts = async () => {
   try {
     const allPosts = await prisma.posts.findMany({
       relationLoadStrategy: "join",
+      orderBy: {
+        updatedAt: "desc",
+      },
       include: {
         author: true,
         Comments: true,
@@ -40,6 +43,9 @@ const getMyBlogPosts = async (authorId) => {
     const myPosts = await prisma.posts.findMany({
       where: {
         authorId: authorId,
+      },
+      orderBy: {
+        updatedAt: "desc",
       },
       include: {
         Comments: true,
@@ -102,6 +108,9 @@ const getUserPublishedPosts = async (authorId) => {
         authorId: authorId,
         published: true,
       },
+      orderBy: {
+        updatedAt: "desc",
+      },
     });
     return publishedPosts;
   } catch (error) {
@@ -115,6 +124,9 @@ const getUserUnpublishedPosts = async (authorId) => {
       where: {
         authorId: authorId,
         published: false,
+      },
+      orderBy: {
+        updatedAt: "desc",
       },
     });
     return unpublishedPosts;
