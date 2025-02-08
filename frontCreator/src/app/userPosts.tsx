@@ -30,15 +30,74 @@ export default function UserPosts() {
     }
     fetchUserPosts();
   }, []);
+  console.log("User Posts", userPosts);
+  const publishedPosts = userPosts.filter((post) => post.published);
+  const unpublishedPosts = userPosts.filter((post) => !post.published);
 
   return (
-    <div>
-      {userPosts.map((post) => (
-        <div key={post.id}>
-          <h2>{post.title}</h2>
-          <p>{post.body}</p>
-        </div>
-      ))}
+    <div className="postPageWindow w-full h-full flex flex-col gap-4 pt-4">
+      <div className="headWrapper">
+        <h1 className="text-center">Your Posts</h1>
+        <p className="text-center text-lg ">Click a post to edit it!</p>
+      </div>
+      <div className="flex flex-col w-full">
+        {userPosts.length === 0 ? (
+          <h2 className="text-2xl text-center text-secondary">
+            No posts found
+          </h2>
+        ) : (
+          <div className="postContainer flex flex-col gap-4 md:gap-8">
+            <div className="postSectionWrapper">
+              <h2 className=" py-2 text-2xl font-bold">Published Posts</h2>
+              <div className="postSectionWrapper">
+                {publishedPosts.map((post) => (
+                  <div
+                    className="flex flex-col p-2 w-full bg-lightprimary hover:bg-secondary border-2 border-darkprimary rounded-md cursor-pointer"
+                    key={post.id}
+                    onClick={() => {
+                      window.location.href = `/posts/${post.id}`;
+                    }}
+                  >
+                    <h2 className="font-bold text-darkprimary">{post.title}</h2>
+                    <div className="postMeatData flex justify-between flex-wrap align-middle">
+                      <p className="text-darkprimary">
+                        Comments: {post.Comments.length}
+                      </p>
+                      <p className="text-darkprimary w-60">
+                        Last Update: {new Date(post.updatedAt).toDateString()}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="postSectionWrapper">
+              <h2 className=" py-2 text-2xl font-bold">Unpublished Posts</h2>
+              <div className="postSectionWrapper">
+                {unpublishedPosts.map((post) => (
+                  <div
+                    className="flex flex-col p-2 w-full bg-lightprimary hover:bg-secondary border-2 border-darkprimary rounded-md cursor-pointer"
+                    key={post.id}
+                    onClick={() => {
+                      window.location.href = `/posts/${post.id}`;
+                    }}
+                  >
+                    <h2 className="font-bold text-darkprimary">{post.title}</h2>
+                    <div className="postMeatData flex justify-between flex-wrap align-middle">
+                      <p className="text-darkprimary">
+                        Comments: {post.Comments.length}
+                      </p>
+                      <p className="text-darkprimary w-60">
+                        Last Update: {new Date(post.updatedAt).toDateString()}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

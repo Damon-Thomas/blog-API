@@ -85,7 +85,6 @@ export default function Home() {
     fetchUserComments();
   }, []);
 
-  console.log("User Info", userInfo.user, "Posts", posts, "Comments", comments);
   let userPostComments = 0;
   for (let i = 0; i < posts.length; i++) {
     userPostComments += posts[i].Comments.length;
@@ -129,8 +128,6 @@ export default function Home() {
       }
     }
   }
-
-  console.log("LatPost", lastPost);
 
   return (
     <div className="flex w-full h-full flex-col justify-start p-4 gap-6 md:gap-12  ">

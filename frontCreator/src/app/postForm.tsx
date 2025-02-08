@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { contextLogin, CurrentUserContext } from "@/context/authContext";
 import { Switch } from "@/components/ui/switch";
+import createPost from "@/apiCalls/createpost";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -29,7 +30,7 @@ const formSchema = z.object({
 
 export function PostForm() {
   const [failure, setFailure] = useState(false);
-  const { setUser } = useContext(CurrentUserContext);
+  const { user, setUser } = useContext(CurrentUserContext);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,17 +42,18 @@ export function PostForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>, e: any) {
     e.preventDefault();
-    console.log("values", values);
-    // const response = await contextLogin(values, setUser);
-    // if (response.failure) {
-    //   console.log("failure");
-    //   setFailure(true);
-    //   return;
-    // }
-    // console.log("res", response);
-
-    // return response;
-    return;
+    values["authorId"] = user.id;
+    console.log("form values", values);
+    const response = await createPost(values);
+    if (response.failure) {
+      console.log(response.message);
+      setFailure(true);
+      return;
+    } else {
+      console.log("Post created");
+      setFailure(false);
+    }
+    return response;
   }
 
   return (
@@ -119,16 +121,12 @@ export function PostForm() {
         />
         <FormMessage id="failure-message">
           {failure ? (
-            "Invalid login. Please try again."
+            "Failed to create post. Please try again."
           ) : (
             <span className="opacity-0">Placeholder</span>
           )}
         </FormMessage>
-        <Button
-          onClick={(e) => e.stopPropagation()}
-          type="submit"
-          className="w-full md:text-xl font-bold"
-        >
+        <Button type="submit" className="w-full md:text-xl font-bold">
           Create Post
         </Button>
       </form>
