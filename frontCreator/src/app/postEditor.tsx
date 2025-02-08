@@ -6,9 +6,11 @@ import FormWrapper from "./forms/formWrapper";
 export default function PostEditor() {
   const postId = useLocation().pathname.split("/posts/").pop();
   const [postInfo, setPostInfo] = useState({});
+  console.log("in editor", postId);
 
   useEffect(() => {
     async function fetchPost() {
+      console.log("Fetching post");
       const response = await fetch(
         import.meta.env.VITE_HOST_URL + "/posts/" + postId,
         {

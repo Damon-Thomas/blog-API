@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -19,6 +19,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { contextLogin, CurrentUserContext } from "@/context/authContext";
 import { Switch } from "@/components/ui/switch";
 import createPost from "@/apiCalls/createpost";
+import { title } from "process";
+import { useLocation } from "react-router-dom";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -28,17 +30,50 @@ const formSchema = z.object({
   published: z.boolean().default(true),
 });
 
-export function PostForm(post: any = null) {
+export function PostForm({ post }: { post: any }) {
   const [failure, setFailure] = useState(false);
   const { user, setUser } = useContext(CurrentUserContext);
+  const postId = useLocation().pathname.split("/posts/").pop();
+  const [postInfo, setPostInfo] = useState({});
+  console.log("in FORM", postId);
+
+  useEffect(() => {
+    async function fetchPost() {
+      console.log("Fetching post");
+      const response = await fetch(
+        import.meta.env.VITE_HOST_URL + "/posts/" + postId,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setPostInfo(data);
+      } else {
+        console.log("Failed to fetch post", response);
+      }
+    }
+    fetchPost();
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-      content: "",
-    },
   });
+
+  useEffect(() => {
+    if (postInfo.post) {
+      form.reset({
+        title: postInfo.post.title,
+        content: postInfo.post.content,
+        published: postInfo.post.published,
+      });
+    }
+  }, [postInfo, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>, e: any) {
     e.preventDefault();
@@ -55,8 +90,6 @@ export function PostForm(post: any = null) {
     return response;
   }
 
-  console.log("Post HEEEEEEREE", post.post);
-
   return (
     <Form {...form}>
       <form
@@ -72,9 +105,7 @@ export function PostForm(post: any = null) {
                 Title
               </FormLabel>
               <FormControl>
-                <Input onClick={(e) => e.stopPropagation()} {...field}>
-                  {post ? post.title : ""}
-                </Input>
+                <Input onClick={(e) => e.stopPropagation()} {...field}></Input>
               </FormControl>
               <FormMessage className="m-0">
                 {fieldState.error?.message}
@@ -93,7 +124,6 @@ export function PostForm(post: any = null) {
               <FormControl>
                 <Textarea
                   onClick={(e) => e.stopPropagation()}
-                  value={post ? post.content : ""}
                   className="w-full h-1/2 font-darkprimary text-lg"
                   rows={7}
                   white-space="pre-wrap"
