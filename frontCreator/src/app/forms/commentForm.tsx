@@ -1,4 +1,4 @@
-export default function CommentForm({ comment }: { comment: any }) {
-  console.log("Comment HERE", comment);
+export default function CommentForm() {
+  console.log("Comment HERE");
   return <h1>Comment Form</h1>;
 }

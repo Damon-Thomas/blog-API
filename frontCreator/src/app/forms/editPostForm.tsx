@@ -1,8 +1,7 @@
 "use client";
-
-import { useState, useRef, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,12 +15,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { contextLogin, CurrentUserContext } from "@/context/authContext";
+import { CurrentUserContext } from "@/context/authContext";
 import { Switch } from "@/components/ui/switch";
-import createPost from "@/apiCalls/createpost";
-import { title } from "process";
+
 import { useLocation } from "react-router-dom";
 import updatePost from "@/apiCalls/updatePost";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -31,36 +30,71 @@ const formSchema = z.object({
   published: z.boolean().default(true),
 });
 
-export function PostForm() {
+export function PostEditorForm() {
   const [failure, setFailure] = useState(false);
   const { user, setUser } = useContext(CurrentUserContext);
+  const [postInfo, setPostInfo] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const postId = useLocation().pathname.split("/posts/").pop();
+
+  useEffect(() => {
+    async function fetchPost() {
+      if (!postId) return;
+      setIsLoading(true);
+      const response = await fetch(
+        import.meta.env.VITE_HOST_URL + "/posts/" + postId,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setPostInfo(data);
+      } else {
+        console.log("Failed to fetch post", response);
+      }
+      setIsLoading(false);
+    }
+    fetchPost();
+  }, [postId]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-      content: "",
-      published: true,
-    },
   });
+
+  useEffect(() => {
+    if (!isLoading && postInfo.post) {
+      form.reset({
+        title: postInfo.post.title,
+        content: postInfo.post.content,
+        published: postInfo.post.published,
+      });
+    }
+  }, [postInfo, form, isLoading]);
 
   async function onSubmit(values: z.infer<typeof formSchema>, e: any) {
     e.preventDefault();
     try {
       values["authorId"] = user.id;
-      console.log("form values", values);
-      const response = await createPost(values);
+      console.log("form values", values, postInfo);
+      const response = await updatePost(values, postInfo.post.id);
       if (response.failure) {
         console.log(response.message);
         setFailure(true);
       } else {
         console.log("Post created");
         setFailure(false);
-        window.location.href = `/posts/`;
+        toast("Post updated successfully", {
+          position: "bottom-right",
+        });
       }
       return response;
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      console.log(e);
     }
   }
 
@@ -129,13 +163,13 @@ export function PostForm() {
         />
         <FormMessage id="failure-message">
           {failure ? (
-            "Failed to create post. Please try again."
+            "Failed to edit post. Please try again."
           ) : (
             <span className="opacity-0">Placeholder</span>
           )}
         </FormMessage>
         <Button type="submit" className="w-full md:text-xl font-bold">
-          Create Post
+          Edit Post
         </Button>
       </form>
     </Form>
