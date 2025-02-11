@@ -25,7 +25,11 @@ export default function FormWrapper({
           edit ? (
             <EditCommentForm />
           ) : (
-            <CommentForm />
+            <h1>
+              {" "}
+              There's been an error, you cannot make new comments in the creator
+              app!
+            </h1>
           )
         ) : (
           <h1 className="text-red">Error Loading Form</h1>

@@ -23,7 +23,7 @@ model Posts {
   published Boolean   @default(false)
   author    User      @relation(fields: [authorId], references: [id])
   authorId  String
-  Comments  Comment[]
+  comments Comment[] @relation("PostComments")
 }
 
 model Comment {
@@ -33,7 +33,7 @@ model Comment {
   content   String
   user      User     @relation(fields: [username], references: [username])
   username  String
-  post      Posts    @relation(fields: [postId], references: [id])
+  post    Posts     @relation("PostComments", fields: [postId], references: [id], onDelete: Cascade)
   postId    String
 }
 

@@ -21,6 +21,7 @@ import { Switch } from "@/components/ui/switch";
 import { useLocation } from "react-router-dom";
 import updatePost from "@/apiCalls/updatePost";
 import { toast } from "sonner";
+import { ConfirmDelete } from "./confirmDelete";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -64,14 +65,19 @@ export function PostEditorForm() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      content: "",
+      published: true,
+    },
   });
 
   useEffect(() => {
     if (!isLoading && postInfo.post) {
       form.reset({
-        title: postInfo.post.title,
-        content: postInfo.post.content,
-        published: postInfo.post.published,
+        title: postInfo.post.title || "",
+        content: postInfo.post.content || "",
+        published: postInfo.post.published || false,
       });
     }
   }, [postInfo, form, isLoading]);
@@ -169,9 +175,12 @@ export function PostEditorForm() {
             <span className="opacity-0">Placeholder</span>
           )}
         </FormMessage>
-        <Button type="submit" className="w-full md:text-xl font-bold">
-          Edit Post
-        </Button>
+        <div className="buttonWrapper flex gap-4">
+          <Button type="submit" className="w-full md:text-xl font-bold">
+            Edit Post
+          </Button>
+          <ConfirmDelete postId={postId} />
+        </div>
       </form>
     </Form>
   );
