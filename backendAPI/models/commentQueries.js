@@ -92,6 +92,19 @@ const getMyComments = async (username) => {
   }
 };
 
+const getComment = async (commentId) => {
+  try {
+    const comment = await prisma.comment.findUnique({
+      where: {
+        id: commentId,
+      },
+    });
+    return comment;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export default {
   getCommentsForPost,
   createComment,
@@ -99,4 +112,5 @@ export default {
   deleteComment,
   updateComment,
   getMyComments,
+  getComment,
 };

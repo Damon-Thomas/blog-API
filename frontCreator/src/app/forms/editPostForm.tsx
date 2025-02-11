@@ -90,6 +90,7 @@ export function PostEditorForm() {
         setFailure(false);
         toast("Post updated successfully", {
           position: "bottom-right",
+          variant: "alternative",
         });
       }
       return response;

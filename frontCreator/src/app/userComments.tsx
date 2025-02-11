@@ -6,12 +6,12 @@ export default function UserComments() {
   useEffect(() => {
     async function fetchUserComments() {
       console.log(
-        "....fetching user posts",
+        "....fetching user comments",
         `${import.meta.env.VITE_HOST_URL}/comments/user`,
         `${localStorage.getItem("token")}`
       );
       const response = await fetch(
-        `${import.meta.env.VITE_HOST_URL}/posts/user`,
+        `${import.meta.env.VITE_HOST_URL}/comments/user`,
         {
           method: "GET",
           headers: {
@@ -25,12 +25,12 @@ export default function UserComments() {
         console.log("Data", data);
         setUserComments(data);
       } else {
-        console.log("Failed to fetch posts", response);
+        console.log("Failed to fetch comments", response);
       }
     }
     fetchUserComments();
   }, []);
-  console.log("User Posts", userComments);
+  console.log("User Comments", userComments);
 
   return (
     <div className="postPageWindow w-full h-full flex flex-col gap-4 pt-4">

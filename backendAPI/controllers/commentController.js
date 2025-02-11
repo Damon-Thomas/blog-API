@@ -7,6 +7,11 @@ const getUsersComments = async (req, res) => {
   res.json(comments);
 };
 
+const getComment = async (req, res) => {
+  const comment = await commentQueries.getComment(req.params.commentId);
+  res.json(comment);
+};
+
 const createComment = async (req, res) => {
   console.log("req.body", req.body);
   const comment = await commentQueries.createComment(
@@ -34,4 +39,5 @@ export default {
   createComment,
   deleteComment,
   updateComment,
+  getComment,
 };

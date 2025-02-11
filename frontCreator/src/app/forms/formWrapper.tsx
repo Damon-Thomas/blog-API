@@ -1,6 +1,7 @@
 import CommentForm from "./commentForm";
 import { PostForm } from "./postForm";
 import { PostEditorForm } from "./editPostForm";
+import { EditCommentForm } from "./editCommentForm";
 export default function FormWrapper({
   title,
   edit,
@@ -22,7 +23,7 @@ export default function FormWrapper({
           )
         ) : pORc === "comment" ? (
           edit ? (
-            <CommentEditForm />
+            <EditCommentForm />
           ) : (
             <CommentForm />
           )
