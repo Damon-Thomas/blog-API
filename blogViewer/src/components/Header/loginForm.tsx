@@ -33,8 +33,8 @@ export function LogInForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      password: "",
+      username: "testUser",
+      password: "123",
     },
   });
 
@@ -67,9 +67,13 @@ export function LogInForm() {
         }}
         className="space-y-8"
       >
-        <FormDescription className="mb-4">
+        <FormDescription className="">
           Log in to your account to access your dashboard, manage your posts,
           and leave comments.
+        </FormDescription>
+        <FormDescription className="!mb-4 !mt-0 font-bold">
+          To test the app without creating an account, use the username
+          "testUser" and the password "123".
         </FormDescription>
         <FormField
           control={form.control}

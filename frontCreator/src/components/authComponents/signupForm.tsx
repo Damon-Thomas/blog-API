@@ -75,9 +75,13 @@ export function SignUpForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8"
       >
-        <FormDescription className="mb-4">
+        <FormDescription className="mb-1">
           Sign up for an account to comment, make blog posts, and participate in
           our community.
+        </FormDescription>
+        <FormDescription className="!mb-4 !mt-0 font-bold">
+          To test the app without creating an account, go to login and use the
+          username "testUser" and the password "123".
         </FormDescription>
         <FormField
           control={form.control}
