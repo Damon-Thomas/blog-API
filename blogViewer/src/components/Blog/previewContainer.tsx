@@ -79,7 +79,7 @@ export default function BlogPreviewContainer() {
 
   return (
     <div className="blogPreviewContainer flex flex-col ">
-      <div className="blogPreviews grid grid-cols-1 sm:grid-cols-2  w-full gap-4 py-4 px-2 md:px-6">
+      <div className="blogPreviews grid grid-cols-1 sm:grid-cols-2  w-full gap-4 px-2 md:px-6">
         {posts.map((post) => (
           <a href={`/post/${post.id}`} key={post.id}>
             <BlogPreview

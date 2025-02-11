@@ -71,9 +71,5 @@ export default function PostPage() {
     return <div>{error}</div>;
   }
 
-  return (
-    <div className="postypost flex flex-col w-[100%-80px] items-center h-full">
-      <PostContainer postInfo={postInfo} />
-    </div>
-  );
+  return <PostContainer postInfo={postInfo} />;
 }
