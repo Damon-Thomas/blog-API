@@ -68,7 +68,7 @@ export function PostForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 flex flex-col min-w-56 md:min-w-96 lg:min-w-128 xl:min-w-160"
+        className="space-y-8 flex flex-col "
       >
         <FormField
           control={form.control}
@@ -91,15 +91,14 @@ export function PostForm() {
           control={form.control}
           name="content"
           render={({ field, fieldState }) => (
-            <FormItem>
+            <FormItem className="flex-1 flex flex-col">
               <FormLabel className="text-darkprimary font-bold md:text-3xl">
                 Content
               </FormLabel>
-              <FormControl>
+              <FormControl className="flex-1">
                 <Textarea
                   onClick={(e) => e.stopPropagation()}
-                  className="w-full h-1/2 font-darkprimary text-lg"
-                  rows={7}
+                  className="w-full h-full min-h-[300px] font-darkprimary text-lg resize-none"
                   white-space="pre-wrap"
                   {...field}
                 />

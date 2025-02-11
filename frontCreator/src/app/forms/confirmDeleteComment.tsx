@@ -48,7 +48,7 @@ export function ConfirmDeleteComment() {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant={"destructive"} className="w-full md:text-xl font-bold">
-          Delete Comment
+          Delete
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

@@ -99,22 +99,20 @@ export function EditCommentForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 flex flex-col min-w-56 md:min-w-96 lg:min-w-128 xl:min-w-160"
+        className="space-y-8 flex flex-col "
       >
         <FormField
           control={form.control}
           name="content"
           render={({ field, fieldState }) => (
-            <FormItem>
+            <FormItem className="flex-1 flex flex-col gap-2">
               <FormLabel className="text-darkprimary font-bold md:text-3xl">
                 Content
               </FormLabel>
-              <FormControl>
+              <FormControl className="flex-1">
                 <Textarea
                   onClick={(e) => e.stopPropagation()}
-                  className="w-full h-1/2 font-darkprimary text-lg"
-                  rows={7}
-                  white-space="pre-wrap"
+                  className="w-full h-1/2 min-h-[300px] font-darkprimary text-lg resize-none"
                   {...field}
                 />
               </FormControl>
@@ -129,9 +127,9 @@ export function EditCommentForm() {
             <span className="opacity-0">Placeholder</span>
           )}
         </FormMessage>
-        <div className="buttonWrapper flex gap-4">
+        <div className="buttonWrapper flex gap-4 !mt-0">
           <Button type="submit" className="w-full md:text-xl font-bold">
-            Edit Comment
+            Edit
           </Button>
           <ConfirmDeleteComment />
         </div>
