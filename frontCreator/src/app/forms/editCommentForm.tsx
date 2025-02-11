@@ -21,6 +21,7 @@ import { Switch } from "@/components/ui/switch";
 import { useLocation } from "react-router-dom";
 import updateComment from "@/apiCalls/updateComment";
 import { toast } from "sonner";
+import { ConfirmDeleteComment } from "./confirmDeleteComment";
 
 const formSchema = z.object({
   content: z.string().min(1, { message: "Required" }),
@@ -128,9 +129,12 @@ export function EditCommentForm() {
             <span className="opacity-0">Placeholder</span>
           )}
         </FormMessage>
-        <Button type="submit" className="w-full md:text-xl font-bold">
-          Edit Comment
-        </Button>
+        <div className="buttonWrapper flex gap-4">
+          <Button type="submit" className="w-full md:text-xl font-bold">
+            Edit Comment
+          </Button>
+          <ConfirmDeleteComment />
+        </div>
       </form>
     </Form>
   );

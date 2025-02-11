@@ -21,7 +21,7 @@ import { Switch } from "@/components/ui/switch";
 import { useLocation } from "react-router-dom";
 import updatePost from "@/apiCalls/updatePost";
 import { toast } from "sonner";
-import { ConfirmDelete } from "./confirmDelete";
+import { ConfirmDelete } from "./confirmDeletePost";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -179,7 +179,7 @@ export function PostEditorForm() {
           <Button type="submit" className="w-full md:text-xl font-bold">
             Edit Post
           </Button>
-          <ConfirmDelete postId={postId} />
+          <ConfirmDelete />
         </div>
       </form>
     </Form>
