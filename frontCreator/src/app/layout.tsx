@@ -13,12 +13,12 @@ export default function Layout() {
   const { user } = useContext(CurrentUserContext);
 
   return (
-    <div className="appWindow w-screen h-screen flex ">
+    <div className="appWindow w-screen h-screen flex overflow-x-hidden">
       {user ? (
         <SidebarProvider>
           <AppSidebar />
           <SidebarTrigger />
-          <main className="flex w-full h-full pr-10 ">
+          <main className="flex w-full h-full pr-10 box-border">
             <Outlet />
           </main>
         </SidebarProvider>

@@ -58,7 +58,9 @@ export default function UserPosts() {
                       window.location.href = `/posts/${post.id}`;
                     }}
                   >
-                    <h2 className="font-bold text-darkprimary">{post.title}</h2>
+                    <h2 className="font-bold text-darkprimary w-[calc(100vw*.5)] overflow-hidden text-ellipsis text-nowrap">
+                      {post.title}
+                    </h2>
                     <div className="postMeatData flex justify-between flex-wrap align-middle">
                       <p className="text-darkprimary">
                         Comments: {post.Comments.length}
@@ -82,9 +84,11 @@ export default function UserPosts() {
                       window.location.href = `/posts/${post.id}`;
                     }}
                   >
-                    <h2 className="font-bold text-darkprimary">{post.title}</h2>
-                    <div className="postMeatData flex justify-between flex-wrap align-middle">
-                      <p className="text-darkprimary">
+                    <h2 className="font-bold text-darkprimary w-[calc(100vw*.5)] overflow-hidden text-ellipsis text-nowrap">
+                      {post.title}
+                    </h2>
+                    <div className="postMeatData flex justify-between flex-wrap align-middle ">
+                      <p className="text-darkprimary ">
                         Comments: {post.Comments.length}
                       </p>
                       <p className="text-darkprimary w-60">

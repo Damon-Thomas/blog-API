@@ -14,7 +14,7 @@ export default function FormWrapper({
   return (
     <div className="editorWindow flex flex-col items-center justify-center box-border w-full h-full gap-4 pt-4">
       <h1 className="text-4xl font-bold text-center">{title}</h1>
-      <div className="formContainer bg-white p-4 md:p-8 lg:p-10 xl:p-14 rounded-lg shadow-lg mb-4 w-full max-w-2xl">
+      <div className="formContainer bg-white p-4 md:p-6 lg:p-8 xl:p-10 rounded-lg shadow-lg mb-4 w-full max-w-2xl">
         {pORc === "post" ? (
           edit ? (
             <PostEditorForm />

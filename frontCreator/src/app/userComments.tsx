@@ -56,8 +56,8 @@ export default function UserComments() {
                     }}
                   >
                     <div className="postMetaData flex justify-between flex-wrap align-middle">
-                      <p className="commentPreview text-darkprimary">
-                        {comment.content.substring(0, 50)}...
+                      <p className="commentPreview text-darkprimary w-[calc(100vw/2)] overflow-hidden text-ellipsis text-nowrap">
+                        {comment.content}
                       </p>
                       <p className="text-darkprimary w-60 ">
                         Last Update:{" "}
