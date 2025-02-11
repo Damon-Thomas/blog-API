@@ -63,7 +63,7 @@ export default function UserPosts() {
                     </h2>
                     <div className="postMeatData flex justify-between flex-wrap align-middle">
                       <p className="text-darkprimary">
-                        Comments: {post.Comments.length}
+                        Comments: {post.comments.length}
                       </p>
                       <p className="text-darkprimary w-60">
                         Last Update: {new Date(post.updatedAt).toDateString()}
@@ -89,7 +89,7 @@ export default function UserPosts() {
                     </h2>
                     <div className="postMeatData flex justify-between flex-wrap align-middle ">
                       <p className="text-darkprimary ">
-                        Comments: {post.Comments.length}
+                        Comments: {post.comments.length}
                       </p>
                       <p className="text-darkprimary w-60">
                         Last Update: {new Date(post.updatedAt).toDateString()}

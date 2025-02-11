@@ -87,7 +87,7 @@ export default function BlogPreviewContainer() {
               content={post.content}
               updated={post.updatedAt}
               author={post.author.username}
-              comments={post.Comments.length}
+              comments={post.comments.length}
             />
           </a>
         ))}

@@ -10,7 +10,7 @@ export default function Home() {
     },
   });
   interface Post {
-    Comments: any[];
+    comments: any[];
   }
   const [posts, setPosts] = useState<Post[]>([]);
   const [comments, setComments] = useState([]);
@@ -87,7 +87,7 @@ export default function Home() {
 
   let userPostComments = 0;
   for (let i = 0; i < posts.length; i++) {
-    userPostComments += posts[i].Comments.length;
+    userPostComments += posts[i].comments.length;
   }
 
   let lastPostDate = null;
@@ -109,7 +109,7 @@ export default function Home() {
     if (mostCommentedPost === null) {
       mostCommentedPost = posts[i];
     } else {
-      if (posts[i].Comments.length > mostCommentedPost.Comments.length) {
+      if (posts[i].comments.length > mostCommentedPost.comments.length) {
         mostCommentedPost = posts[i];
       }
     }
@@ -215,7 +215,7 @@ export default function Home() {
                   </h6>
                   <p>{mostCommentedPost.content.substring(0, 200)}...</p>
                 </div>
-                <p>Comments: {mostCommentedPost?.Comments.length}</p>
+                <p>Comments: {mostCommentedPost?.comments.length}</p>
               </div>
             ) : (
               <div className="postHighlightCard">
