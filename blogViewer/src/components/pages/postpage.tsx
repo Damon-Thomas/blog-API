@@ -36,11 +36,7 @@ export default function PostPage() {
       } catch (error) {
         setError("An error occurred while fetching posts");
       } finally {
-        setTimeout(() => {
-          // Simulate a delay
-          console.log("loading complete", postInfo);
-          setLoading(false);
-        }, 1000);
+        setLoading(false);
       }
     }
     fetchPost();

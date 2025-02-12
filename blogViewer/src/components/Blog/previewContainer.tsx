@@ -42,10 +42,7 @@ export default function BlogPreviewContainer() {
       } catch (error) {
         setError("An error occurred while fetching posts");
       } finally {
-        setTimeout(() => {
-          // Simulate a delay
-          setLoading(false);
-        }, 1000);
+        setLoading(false);
       }
     }
 
