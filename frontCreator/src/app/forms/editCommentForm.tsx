@@ -7,16 +7,13 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CurrentUserContext } from "@/context/authContext";
-import { Switch } from "@/components/ui/switch";
 
 import { useLocation } from "react-router-dom";
 import updateComment from "@/apiCalls/updateComment";
@@ -29,7 +26,7 @@ const formSchema = z.object({
 
 export function EditCommentForm() {
   const [failure, setFailure] = useState(false);
-  const { user, setUser } = useContext(CurrentUserContext);
+  const { user } = useContext(CurrentUserContext);
   const [commentInfo, setCommentInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const commentId = useLocation().pathname.split("/comments/").pop();
@@ -73,7 +70,7 @@ export function EditCommentForm() {
     }
   }, [commentInfo, form, isLoading]);
 
-  async function onSubmit(values: z.infer<typeof formSchema>, e: any) {
+  async function onSubmit(values: any, e: any) {
     e.preventDefault();
     try {
       values["authorId"] = user.id;

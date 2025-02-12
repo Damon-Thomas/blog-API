@@ -14,7 +14,7 @@ export default function Home() {
   }
   const [posts, setPosts] = useState<Post[]>([]);
   const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchUserInfo() {
