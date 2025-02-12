@@ -19,5 +19,6 @@ The following was implemented/used to create the project:
 - Shadcn Components, Figma, Lucide Icons
 - Railway, Vercel
 
-See Live Project => [Blog API](https://blog-api-green-mu.vercel.app/)
+# See Live Project => [Blog API](https://blog-api-green-mu.vercel.app/)
+
 Test login info is pre-populated in the login form. Login and take a look at the Creator Application as well.
