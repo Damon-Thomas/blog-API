@@ -56,7 +56,7 @@ export function PostForm() {
       } else {
         console.log("Post created");
         setFailure(false);
-        window.location.href = `/posts/`;
+        window.location.href = `/posts`;
       }
       return response;
     } catch (err) {
