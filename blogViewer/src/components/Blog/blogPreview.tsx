@@ -16,7 +16,7 @@ export default function blogPreview({
   const update = new Date(updated);
 
   return (
-    <div className="post flex flex-col w-full rounded-md bg-white text-darkprimary h-60 overflow-hidden">
+    <div className="post flex flex-col w-full rounded-md bg-white hover:bg-lightsecondary text-darkprimary h-60 overflow-hidden">
       <div className="postFooter flex justify-between items-center h-1/5 border-b-2 border-primary px-2 md:px-6">
         <p className="post author font-bold">@{author}</p>
         <p className="postLastUpdate">{update.toDateString()}</p>

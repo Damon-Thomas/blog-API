@@ -15,6 +15,7 @@ The following was implemented/used to create the project:
 - React, ReactRouter, Vite, Tailwind
 - PostgreSQL, primsa
 - Node.js, Typescript, Express.js
+- JWT authentication, bcrypt
 - Shadcn Components, Figma, Lucide Icons
 - Railway, Vercel
 
