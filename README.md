@@ -26,10 +26,10 @@ Test login info is pre-populated in the login form. Login and take a look at the
 ## Screenshots
 
 <p align="center">
-  <img src="screenshots/dashboard-desktop.png" alt="Dashboard Desktop" width="45%" style="margin: 1%; display: inline-block;"/>
-  <img src="screenshots/sidebar-mobile.png" alt="Sidebar Mobile" width="45%" style="margin: 1%; display: inline-block;"/>
+  <img src="./screenshots/dashboard-desktop.png" alt="Dashboard Desktop" width="45%" style="margin: 1%; display: inline-block;"/>
+  <img src="./screenshots/sidebar-mobile.png" alt="Sidebar Mobile" width="45%" style="margin: 1%; display: inline-block;"/>
 </p>
 <p align="center">
-  <img src="screenshots/blog-list.png" alt="Blog List" width="45%" style="margin: 1%; display: inline-block;"/>
-  <img src="screenshots/post-detail.png" alt="Post Detail" width="45%" style="margin: 1%; display: inline-block;"/>
+  <img src="./screenshots/blog-list.png" alt="Blog List" width="45%" style="margin: 1%; display: inline-block;"/>
+  <img src="./screenshots/post-detail.png" alt="Post Detail" width="45%" style="margin: 1%; display: inline-block;"/>
 </p>
