@@ -25,15 +25,14 @@ Test login info is pre-populated in the login form. Login and take a look at the
 
 ## Screenshots
 
-<div style="display: flex; width: 100%; justify-content: center; align-items: flex-start; gap: 2%;">
-  <!-- Left: 3 images stacked vertically -->
-  <div style="display: flex; flex-direction: column; width: 66%;">
-    <img src="./screenshots/blog-api-creator.vercel.app_.png" alt="Creator App Desktop" style="width: 100%; margin-bottom: 2%;" />
-    <img src="./screenshots/blog-api-green-mu.vercel.app_.png" alt="Viewer App Blog List" style="width: 100%; margin-bottom: 2%;" />
-    <img src="./screenshots/blog-api-green-mu.vercel.app_post_5611dcc8-d16b-4a5b-a859-6366cd3e0644.png" alt="Viewer App Post Detail" style="width: 100%;" />
-  </div>
-  <!-- Right: Mobile image centered vertically -->
-  <div style="display: flex; align-items: center; width: 33%; min-width: 150px;">
-    <img src="./screenshots/blog-api-creator.vercel.app_(iPhone SE).png" alt="Creator App Mobile" style="width: 100%; max-width: 250px; margin: auto;" />
-  </div>
+<div align="center">
+  <img src="./screenshots/blog-api-creator.vercel.app_.png" alt="Creator App Desktop" width="350" style="display: inline-block; vertical-align: top;" />
+    <img src="./screenshots/blog-api-green-mu.vercel.app_.png" alt="Viewer App Blog List" width="350" style="display: inline-block; vertical-align: top;" />
 </div>
+
+<div align="center" style="margin-top: 30px;">
+  <img src="./screenshots/blog-api-green-mu.vercel.app_post_5611dcc8-d16b-4a5b-a859-6366cd3e0644.png" alt="Viewer App Post Detail" width="500" style="display: inline-block; vertical-align: top;" />
+  <img src="./screenshots/blog-api-creator.vercel.app_(iPhone SE).png" alt="Creator App Mobile" width="200" style="display: inline-block; vertical-align: top;" />
+</div>
+
+---
